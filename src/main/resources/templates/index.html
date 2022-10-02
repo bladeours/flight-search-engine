@@ -14,43 +14,49 @@
 <body>
     <section id="logo" th:style="'background-image: url(/images/vacation_banner.jpg)'">
         <div id="search" class="container">
-            <div class="row">
-                <div id="departureDataListDiv" class="col">
-                    <label for="departureDataList" class="form-label">Departure airport</label>
-                    <input id="departureDataList" class="form-control" list="departureDataListOptions" placeholder="Type airport...">
-                    <datalist id="departureDataListOptions">
-                        <select>
-                            <option th:each="airport: ${airports}" th:value="${airport.city}">
-                        </select>
-                    </datalist>
+            <form method="post" th:action="@{/}" th:object="${flightForm}" >
+                <div class="row">
+                    <div id="departureDataListDiv" class="col">
+                        <label for="departureDataList" class="form-label">Departure airport</label>
+                        <input id="departureDataList" th:field="*{departureAirportCode}" class="form-control"
+                               list="departureDataListOptions" placeholder="Type airport...">
+                        <datalist id="departureDataListOptions">
+                            <label>
+                                <select >
+                                    <option th:each="airport: ${airports}" th:value="${airport.code}" th:text="${airport.city}"> </option>
+                                </select>
+                            </label>
+                        </datalist>
+                    </div>
+                    <div id="arrivalDataListDiv" class="col">
+                        <label for="arrivalDataList" class="form-label">Arrival airport</label>
+                        <input id="arrivalDataList" th:field="*{arrivalAirportCode}" class="form-control"
+                               list="arrivalDataListOptions" placeholder="Type airport...">
+                        <datalist id="arrivalDataListOptions">
+                            <select>
+                                <option th:each="airport: ${airports}" th:value="${airport.code}" th:text="${airport.city}"> </option>
+                            </select>
+                        </datalist>
+                    </div>
                 </div>
-                <div id="arrivalDataListDiv" class="col">
-                    <label for="arrivalDataList" class="form-label">Arrival airport</label>
-                    <input id="arrivalDataList" class="form-control" list="arrivalDataListOptions" placeholder="Type airport...">
-                    <datalist id="arrivalDataListOptions">
-                        <select>
-                            <option th:each="airport: ${airports}" th:value="${airport.city}">
-                        </select>
-                    </datalist>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="departureDate">Start</label>
-                    <input id="departureDate" class="form-control" type="date" />
-                </div>
-                <div class="col">
-                    <label for="arrivalDate">Start</label>
-                    <input id="arrivalDate" class="form-control" type="date" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary" id="searchButton">Search</button>
-                </div>
-            </div>
-        </div>
 
+                <div class="row">
+                    <div class="col">
+                        <label for="departureDate">Depart</label>
+                        <input id="departureDate" th:field="*{departureDate}" class="form-control" type="date" />
+                    </div>
+                    <div class="col">
+                        <label for="arrivalDate">Return</label>
+                        <input id="arrivalDate" th:field="*{returnDate}" class="form-control" type="date" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary"  id="searchButton">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </section>
     <section id="searchResult">
 
