@@ -30,8 +30,9 @@ public class HomeController {
     public String showResults(@ModelAttribute FlightFormDAO flightForm, Model model){
         model.addAttribute("airports", airportService.findAll());
         model.addAttribute("flightForm", flightForm);
-        System.out.println(flightForm);
         model.addAttribute("flightForm", new FlightFormDAO()); //clear form
+        System.out.println(airportService.getAirport(flightForm.getArrivalAirportCode()));
+
         return "index";
     }
 

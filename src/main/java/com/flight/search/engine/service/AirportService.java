@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface AirportService {
     List<AirportDAO> findAll();
+
+    AirportDAO getAirport(String code);
 }
