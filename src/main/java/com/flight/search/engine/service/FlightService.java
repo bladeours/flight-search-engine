@@ -6,6 +6,6 @@ import com.flight.search.engine.dao.FlightDAO;
 import java.util.List;
 
 public interface FlightService {
-    List<FlightDAO> getFlightsForCodes(String departureCode, String arrivalCode);
+    List<FlightDAO> getFlightsForCodes(String departureCode, String arrivalCode, String date);
 
 }

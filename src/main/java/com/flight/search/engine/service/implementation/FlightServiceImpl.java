@@ -19,10 +19,10 @@ public class FlightServiceImpl implements FlightService {
 
 
     @Override
-    public List<FlightDAO> getFlightsForCodes(String departureCode, String arrivalCode) {
+    public List<FlightDAO> getFlightsForCodes(String departureCode, String arrivalCode,String date) {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
-                .uri("http://localhost:8082/flight/" + departureCode + "/" + arrivalCode)
+                .uri("http://localhost:8082/flight/" + departureCode + "/" + arrivalCode + "?date=" + date)
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
