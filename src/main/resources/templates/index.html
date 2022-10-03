@@ -61,32 +61,39 @@
     </section>
     <section id="searchResult">
         <div class="container">
-           <h2><p class="text-center" id="destinationHeader">Warsaw - Berlin</p></h2>
+           <h2><p class="text-center" id="destinationHeader" th:text="${departureAirport.city} + ' - ' + ${arrivalAirport.city}"/></h2>
                 <p class="text-center">Monday, February 3</p>
         </div>
-        <div class="container" id="flightContainer">
+        <a href="#" id="" th:each="flight: ${flights}">
+        <div  class="container" id="flightContainer">
+
+            <div class="row text-center">
+                <div class="col">
+                    <h2 th:text="${flight.getCompany().getName()}"/>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-auto">
-                    <h2>RyanAir</h2>
-                </div>
-                <div class="col-md-auto">
-                    <h5 class="hour">16:20</h5>
-                    <p>WAW</p>
+                    <h5 class="hour" th:text="${flight.getDepartureDate().getHours()} + ':' + ${flight.getDepartureDate().getMinutes()}"/>
+                    <p th:text="${flight.getDepartureAirport().getCode()}"/>
                 </div>
                 <div class="col">
                     <hr class="divider">
                 </div>
                 <div class="col-md-auto">
                     <h5 class="hour">19:20</h5>
-                    <p>BGY</p>
+                    <p th:text="${flight.getArrivalAirport().getCode()}"/>
                 </div>
             </div>
             <div class="row text-center">
                 <div class="col">
-                    <p class="fs-6">720$ | 1h15min | non-stop</p>
+                    <p class="fs-6" th:text="${flight.getPrice()} + '$ | ' +  ${flight.getFlightTime().getHours()} + 'h' +
+                    ${flight.getFlightTime().getMinutes()} + 'min | ' + 'non-stop'" >720$ | 1h15min | non-stop</p>
                 </div>
             </div>
         </div>
+        </a>
+
     </section>
     <footer class="text-center text-lg-start bg-light text-muted">
 
