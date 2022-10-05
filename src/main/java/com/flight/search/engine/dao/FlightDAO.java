@@ -32,6 +32,8 @@ public class FlightDAO {
         this.distance_km = distance_km;
     }
 
+
+
     public Long getId() {
         return id;
     }

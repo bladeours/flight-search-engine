@@ -10,6 +10,10 @@ import com.flight.search.engine.service.FlightService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,5 +37,21 @@ public class FlightServiceImpl implements FlightService {
             throw new RuntimeException(e);
         }
         return flights;
+    }
+
+    @Override
+    public String getDateToShow(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDateTime = LocalDate.parse(date, formatter);
+        String dateToShow =  capitalize(localDateTime.getDayOfWeek().toString()) + " " + localDateTime.getDayOfMonth() +
+                 " " + capitalize(localDateTime.getMonth().toString() + ", " + localDateTime.getYear());
+        return dateToShow;
+    }
+
+    private static String capitalize(String str) {
+        if(str == null || str.isEmpty()) {
+            return str;
+        }
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
 }

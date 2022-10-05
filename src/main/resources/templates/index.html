@@ -15,7 +15,7 @@
 <body>
     <section id="logo" th:style="'background-image: url(/images/vacation_banner.jpg)'">
         <div id="search" class="container">
-            <form method="post" th:action="@{/}" th:object="${flightForm}" >
+            <form method="post" th:action="@{/search}" th:object="${flightForm}" >
                 <div class="row">
                     <div id="departureDataListDiv" class="col">
                         <label for="departureDataList" class="form-label">Departure airport</label>
@@ -60,9 +60,12 @@
         </div>
     </section>
     <section id="searchResult">
-        <div class="container">
+        <div class="container"  th:if="${departureAirport != null}">
            <h2><p class="text-center" id="destinationHeader" th:text="${departureAirport.city} + ' - ' + ${arrivalAirport.city}"/></h2>
-                <p class="text-center">Monday, February 3</p>
+            <p class="text-center" th:text="${dateToShow}"/>
+        </div>
+        <div class="container" th:unless="${departureAirport != null}">
+            <h1><p class="text-center">Find your dream flight!</p></h1>
         </div>
         <a href="#" id="" th:each="flight: ${flights}">
         <div  class="container" id="flightContainer">
@@ -93,7 +96,9 @@
             </div>
         </div>
         </a>
-
+        <div th:if="${flights.empty}" class="container">
+            ni ma
+        </div>
     </section>
     <footer class="text-center text-lg-start bg-light text-muted">
 
