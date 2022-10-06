@@ -8,6 +8,7 @@ public class FlightDAO {
     private AirportDAO departureAirport;
     private AirportDAO arrivalAirport;
     private Timestamp departureDate;
+    private Timestamp arrivalDate;
     private Time flightTime;
     private int allSeats;
     private int freeSeats;
@@ -112,5 +113,13 @@ public class FlightDAO {
 
     public void setArrivalAirport(AirportDAO arrivalAirport) {
         this.arrivalAirport = arrivalAirport;
+    }
+
+    public Timestamp getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(Timestamp arrivalDate) {
+        this.arrivalDate = arrivalDate;
     }
 }

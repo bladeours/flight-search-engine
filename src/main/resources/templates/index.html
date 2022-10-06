@@ -42,14 +42,14 @@
                 </div>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col text-center" id="colDepartureDate">
                         <label for="departureDate">Depart</label>
                         <input id="departureDate" th:field="*{departureDate}" class="form-control" type="date" />
                     </div>
-                    <div class="col">
-                        <label for="arrivalDate">Return</label>
-                        <input id="arrivalDate" th:field="*{returnDate}" class="form-control" type="date" />
-                    </div>
+<!--                    <div class="col">-->
+<!--                        <label for="arrivalDate">Rreturn</label>-->
+<!--                        <input id="arrivalDate" th:field="*{returnDate}" class="form-control" type="date" />-->
+<!--                    </div>-->
                 </div>
                 <div class="row">
                     <div class="col d-flex justify-content-center">
@@ -61,15 +61,14 @@
     </section>
     <section id="searchResult">
         <div class="container"  th:if="${departureAirport != null}">
-           <h2><p class="text-center" id="destinationHeader" th:text="${departureAirport.city} + ' - ' + ${arrivalAirport.city}"/></h2>
+           <h2 class="text-center" id="destinationHeader" th:text="${departureAirport.city} + ' - ' + ${arrivalAirport.city}"/>
             <p class="text-center" th:text="${dateToShow}"/>
         </div>
         <div class="container" th:unless="${departureAirport != null}">
-            <h1><p class="text-center">Find your dream flight!</p></h1>
+            <h1 class="text-center">Find your dream flight!</h1>
         </div>
         <a href="#" id="" th:each="flight: ${flights}">
         <div  class="container" id="flightContainer">
-
             <div class="row text-center">
                 <div class="col">
                     <h2 th:text="${flight.getCompany().getName()}"/>
@@ -77,27 +76,28 @@
             </div>
             <div class="row">
                 <div class="col-md-auto">
-                    <h5 class="hour" th:text="${flight.getDepartureDate().getHours()} + ':' + ${flight.getDepartureDate().getMinutes()}"/>
+                    <h5 class="hour" th:text="${#dates.format(flight.getDepartureDate(), 'HH:mm')}"/>
                     <p th:text="${flight.getDepartureAirport().getCode()}"/>
                 </div>
                 <div class="col">
                     <hr class="divider">
                 </div>
                 <div class="col-md-auto">
-                    <h5 class="hour">19:20</h5>
+                    <h5 class="hour" th:text="${#dates.format(flight.getArrivalDate(), 'HH:mm')}" />
                     <p th:text="${flight.getArrivalAirport().getCode()}"/>
                 </div>
             </div>
             <div class="row text-center">
                 <div class="col">
-                    <p class="fs-6" th:text="${flight.getPrice()} + '$ | ' +  ${flight.getFlightTime().getHours()} + 'h' +
-                    ${flight.getFlightTime().getMinutes()} + 'min | ' + 'non-stop'" >720$ | 1h15min | non-stop</p>
+                    <p class="fs-6" th:text="${#numbers.formatDecimal(flight.getPrice(),1,2,'POINT')} + '$ | ' +  ${flight.getFlightTime().getHours()} + 'h' +
+                    ${flight.getFlightTime().getMinutes()} + 'min | ' + 'non-stop'" />
                 </div>
             </div>
         </div>
         </a>
-        <div th:if="${flights.empty}" class="container">
-            ni ma
+        <div th:if="${departureAirport != null and flights.isEmpty()}" class="container">
+                <h1 class="text-center">oops we couldn't find your flight :(</h1>
+        </div>
         </div>
     </section>
     <footer class="text-center text-lg-start bg-light text-muted">
@@ -105,12 +105,12 @@
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
             <div class="row justify-content-md-center">
                 <div class="col-md-auto">
-                    <a href="#">
+                    <a href="https://www.linkedin.com/in/2krafal-wisniewski/" target="_blank">
                         <i class="bi bi-linkedin"></i>
                     </a>
                 </div>
                 <div class="col-md-auto">
-                    <a href="#">
+                    <a href="https://github.com/bladeours" target="_blank">
                         <i class="bi bi-github"></i>
                     </a>
                 </div>
