@@ -21,7 +21,7 @@
 }
 
 #searchButton {
-    transform: translate(0%, 75%);
+    transform: translate(0%, 25%);
     width: 90px;
 }
 
@@ -71,5 +71,18 @@ a, a:visited, a:link, a:active, a:hover, a:focus {
 #colDepartureDate {
     margin-left: 150px;
     margin-right: 150px;
-    padding-top: 20px;
+}
+
+.error-custom {
+    font-size: small;
+    word-wrap: anywhere;
+    color: #e00000;
+}
+
+#rowErrorSpaceAirport, #rowErrorSpaceDate {
+    height: 20px;
+}
+
+#rowDate {
+    height: 18px ;
 }

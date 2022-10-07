@@ -6,11 +6,13 @@ import com.flight.search.engine.service.AirportService;
 import com.flight.search.engine.service.FlightService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
+import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +31,16 @@ public class HomeController {
 
     @GetMapping("/")
     public String showHomePage(Model model){
+        model.addAttribute("airports", airportService.findAll());
         model.addAttribute("flightForm", new FlightFormDAO());
         return "index";
     }
 
     @PostMapping("/search")
-    public String showResults(@ModelAttribute("flightForm") FlightFormDAO flightForm, Model model){
+    public String showResults(@Valid @ModelAttribute("flightForm") FlightFormDAO flightForm, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            return "index";
+        }
         model.addAttribute("airports", airportService.findAll());
         model.addAttribute("flightForm", flightForm);
         if(!Objects.equals(flightForm.getDepartureAirportCode(), "") || !Objects.equals(flightForm.getArrivalAirportCode(), "")){
@@ -45,7 +51,6 @@ public class HomeController {
             for(FlightDAO flight : flights){
                 flight.setArrivalDate(new Timestamp(0));
                 flight.getArrivalDate().setTime(flight.getDepartureDate().getTime() + flight.getFlightTime().getTime());
-                System.out.println(flight.getArrivalDate().toLocalDateTime().getHour());
             }
             model.addAttribute("flights",flights);
             model.addAttribute("dateToShow", flightService.getDateToShow(flightForm.getDepartureDate()));
