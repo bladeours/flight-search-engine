@@ -38,11 +38,12 @@ public class HomeController {
 
     @PostMapping("/search")
     public String showResults(@Valid @ModelAttribute("flightForm") FlightFormDAO flightForm, BindingResult bindingResult, Model model){
+        model.addAttribute("airports", airportService.findAll());
+        model.addAttribute("flightForm", flightForm);
         if(bindingResult.hasErrors()){
             return "index";
         }
-        model.addAttribute("airports", airportService.findAll());
-        model.addAttribute("flightForm", flightForm);
+
         if(!Objects.equals(flightForm.getDepartureAirportCode(), "") || !Objects.equals(flightForm.getArrivalAirportCode(), "")){
             model.addAttribute("departureAirport",airportService.getAirport(flightForm.getDepartureAirportCode()));
             model.addAttribute("arrivalAirport",airportService.getAirport(flightForm.getArrivalAirportCode()));
