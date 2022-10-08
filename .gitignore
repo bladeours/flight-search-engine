@@ -9,6 +9,9 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+.mvn
 
 # Eclipse m2e generated files
 # Eclipse Core
@@ -25,7 +28,8 @@ buildNumber.properties
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-
+.idea
+*.iml
 # AWS User-specific
 .idea/**/aws.xml
 
