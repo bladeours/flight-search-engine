@@ -47,6 +47,7 @@ public class HomeController {
         if(!Objects.equals(flightForm.getDepartureAirportCode(), "") || !Objects.equals(flightForm.getArrivalAirportCode(), "")){
             model.addAttribute("departureAirport",airportService.getAirport(flightForm.getDepartureAirportCode()));
             model.addAttribute("arrivalAirport",airportService.getAirport(flightForm.getArrivalAirportCode()));
+            System.out.println(flightForm.getDepartureDate());
             List<FlightDAO> flights = flightService.getFlightsForCodes(flightForm.getDepartureAirportCode(),
                     flightForm.getArrivalAirportCode(), flightForm.getDepartureDate());
             for(FlightDAO flight : flights){

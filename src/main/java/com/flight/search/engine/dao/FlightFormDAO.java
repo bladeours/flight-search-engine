@@ -1,6 +1,8 @@
 package com.flight.search.engine.dao;
 
 import com.flight.search.engine.validate.annotation.AirportValidation;
+import com.flight.search.engine.validate.annotation.DateValidation;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotEmpty;
@@ -16,7 +18,8 @@ public class FlightFormDAO {
     @AirportValidation
     @NotEmpty(message = "Airport can not be empty")
     private String arrivalAirportCode;
-    @NotEmpty(message = "departure date can not be empty")
+    @DateValidation
+    @NotEmpty(message = "Departure date can not be empty")
     private String departureDate;
     private String returnDate;
 

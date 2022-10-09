@@ -19,6 +19,9 @@ public class AirportValidator implements ConstraintValidator<AirportValidation, 
 
     @Override
     public boolean isValid(String airportCode, ConstraintValidatorContext constraintValidatorContext) {
+        if(airportCode.equals("")){
+            return true;
+        }
         List<AirportDAO> airports = airportService.findAll();
         ArrayList<String> airportsCodes = new ArrayList<>();
         for(AirportDAO airportTMP  : airports){
