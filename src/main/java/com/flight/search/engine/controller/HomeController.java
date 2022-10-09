@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,7 +33,10 @@ public class HomeController {
     @GetMapping("/")
     public String showHomePage(Model model){
         model.addAttribute("airports", airportService.findAll());
-        model.addAttribute("flightForm", new FlightFormDAO());
+        FlightFormDAO flightFormDAO = new FlightFormDAO();
+        flightFormDAO.setDepartureDate(LocalDate.now().toString());
+        model.addAttribute("flightForm", flightFormDAO);
+
         return "index";
     }
 
@@ -47,7 +51,6 @@ public class HomeController {
         if(!Objects.equals(flightForm.getDepartureAirportCode(), "") || !Objects.equals(flightForm.getArrivalAirportCode(), "")){
             model.addAttribute("departureAirport",airportService.getAirport(flightForm.getDepartureAirportCode()));
             model.addAttribute("arrivalAirport",airportService.getAirport(flightForm.getArrivalAirportCode()));
-            System.out.println(flightForm.getDepartureDate());
             List<FlightDAO> flights = flightService.getFlightsForCodes(flightForm.getDepartureAirportCode(),
                     flightForm.getArrivalAirportCode(), flightForm.getDepartureDate());
             for(FlightDAO flight : flights){
