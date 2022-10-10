@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Flight Search Engine</title>
     <link th:href="@{/css/styleHome.css}" rel="stylesheet">
+    <link th:href="@{/css/styleTemplate.css}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
@@ -13,67 +14,64 @@
 
 </head>
 <body>
-    <section id="logo" th:style="'background-image: url(/images/vacation_banner.jpg)'">
-        <div id="search" class="container">
-<!--            <div class="alert alert-warning" th:if="${#fields.hasErrors('flightForm.departureAirportCode')}">lol</div>-->
-            <form method="post" th:action="@{/search}" th:object="${flightForm}" >
+    <section th:replace="template :: logo"></section>
+    <div id="search" class="container">
+        <form method="post" th:action="@{/search}" th:object="${flightForm}" >
+            <div class="row">
+                <div id="departureDataListDiv" class="col">
+                    <label for="departureDataList" class="form-label">Departure airport</label>
+                    <input id="departureDataList" th:field="*{departureAirportCode}"  class="form-control"
+                           list="departureDataListOptions" placeholder="Type airport...">
 
-                <div class="row">
-                    <div id="departureDataListDiv" class="col">
-                        <label for="departureDataList" class="form-label">Departure airport</label>
-                        <input id="departureDataList" th:field="*{departureAirportCode}"  class="form-control"
-                               list="departureDataListOptions" placeholder="Type airport...">
-
-                        <datalist id="departureDataListOptions">
-                            <label>
-                                <select>
-                                    <option th:each="airport: ${airports}" th:value="${airport.code}" th:text="${airport.city}"> </option>
-                                </select>
-                            </label>
-                        </datalist>
-                    </div>
-                    <div id="arrivalDataListDiv" class="col">
-                        <label for="arrivalDataList" class="form-label">Arrival airport</label>
-                        <input id="arrivalDataList" th:field="*{arrivalAirportCode}" class="form-control"
-                               list="arrivalDataListOptions" placeholder="Type airport...">
-                        <datalist id="arrivalDataListOptions">
+                    <datalist id="departureDataListOptions">
+                        <label>
                             <select>
                                 <option th:each="airport: ${airports}" th:value="${airport.code}" th:text="${airport.city}"> </option>
                             </select>
-                        </datalist>
-                    </div>
+                        </label>
+                    </datalist>
                 </div>
-                <div class="row" id="rowErrorSpaceAirport">
-                    <div class="col">
-                        <label th:if="${#fields.hasErrors('departureAirportCode')}" th:errors="*{departureAirportCode}" class="error-custom"></label>
-                    </div>
-                    <div class="col">
-                        <label th:if="${#fields.hasErrors('arrivalAirportCode')}" th:errors="*{arrivalAirportCode}" class="error-custom"></label>
-                    </div>
+                <div id="arrivalDataListDiv" class="col">
+                    <label for="arrivalDataList" class="form-label">Arrival airport</label>
+                    <input id="arrivalDataList" th:field="*{arrivalAirportCode}" class="form-control"
+                           list="arrivalDataListOptions" placeholder="Type airport...">
+                    <datalist id="arrivalDataListOptions">
+                        <select>
+                            <option th:each="airport: ${airports}" th:value="${airport.code}" th:text="${airport.city}"> </option>
+                        </select>
+                    </datalist>
                 </div>
-                <div class="row">
-                    <div class="col text-center" id="colDepartureDate">
-                        <label for="departureDate">Depart</label>
-                        <input id="departureDate" th:field="*{departureDate}" class="form-control" type="date" />
-                    </div>
+            </div>
+            <div class="row" id="rowErrorSpaceAirport">
+                <div class="col">
+                    <label th:if="${#fields.hasErrors('departureAirportCode')}" th:errors="*{departureAirportCode}" class="error-custom"></label>
+                </div>
+                <div class="col">
+                    <label th:if="${#fields.hasErrors('arrivalAirportCode')}" th:errors="*{arrivalAirportCode}" class="error-custom"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center" id="colDepartureDate">
+                    <label for="departureDate">Depart</label>
+                    <input id="departureDate" th:field="*{departureDate}" class="form-control" type="date" />
+                </div>
 <!--                    <div class="col">-->
 <!--                        <label for="arrivalDate">Rreturn</label>-->
 <!--                        <input id="arrivalDate" th:field="*{returnDate}" class="form-control" type="date" />-->
 <!--                    </div>-->
+            </div>
+            <div class="row" id="rowErrorSpaceDate">
+                <div class="col text-center">
+                    <label th:if="${#fields.hasErrors('departureDate')}" th:errors="*{departureDate}" class="error-custom"></label>
                 </div>
-                <div class="row" id="rowErrorSpaceDate">
-                    <div class="col text-center">
-                        <label th:if="${#fields.hasErrors('departureDate')}" th:errors="*{departureDate}" class="error-custom"></label>
-                    </div>
+            </div>
+            <div class="row" id="rowDate">
+                <div class="col d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary"  id="searchButton">Search</button>
                 </div>
-                <div class="row" id="rowDate">
-                    <div class="col d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary"  id="searchButton">Search</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+            </div>
+        </form>
+    </div>
     <section id="searchResult">
         <div class="container"  th:if="${departureAirport != null}">
            <h2 class="text-center" id="destinationHeader" th:text="${departureAirport.city} + ' - ' + ${arrivalAirport.city}"/>
@@ -82,7 +80,7 @@
         <div class="container" th:unless="${departureAirport != null}">
             <h1 class="text-center">Find your dream flight!</h1>
         </div>
-        <a href="#" id="" th:each="flight: ${flights}">
+        <a href="/flight"  th:each="flight: ${flights}">
         <div  class="container" id="flightContainer">
             <div class="row text-center">
                 <div class="col">
@@ -113,32 +111,12 @@
         <div th:if="${departureAirport != null and flights.isEmpty()}" class="container">
                 <h1 class="text-center">oops we couldn't find your flight :(</h1>
         </div>
-        </div>
     </section>
-    <footer class="text-center text-lg-start bg-light text-muted">
-
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-            <div class="row justify-content-md-center">
-                <div class="col-md-auto">
-                    <a href="https://www.linkedin.com/in/2krafal-wisniewski/" target="_blank">
-                        <i class="bi bi-linkedin"></i>
-                    </a>
-                </div>
-                <div class="col-md-auto">
-                    <a href="https://github.com/bladeours" target="_blank">
-                        <i class="bi bi-github"></i>
-                    </a>
-                </div>
-            </div>
-            Rafal Wisniewski 2022
-        </div>
-    </footer>
+    <footer th:replace="template :: footer"></footer>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 
