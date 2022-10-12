@@ -27,7 +27,7 @@ public class HomeController {
     public HomeController(AirportService airportService, FlightService flightService) {
         this.airportService = airportService;
         this.flightService = flightService;
-    }
+     }
 
 
     @GetMapping("/")
@@ -41,7 +41,8 @@ public class HomeController {
     }
 
     @PostMapping("/search")
-    public String showResults(@Valid @ModelAttribute("flightForm") FlightFormDAO flightForm, BindingResult bindingResult, Model model){
+    public String showResults(@Valid @ModelAttribute("flightForm") FlightFormDAO flightForm, BindingResult bindingResult,
+                              Model model){
         model.addAttribute("airports", airportService.findAll());
         model.addAttribute("flightForm", flightForm);
         if(bindingResult.hasErrors()){
@@ -53,10 +54,6 @@ public class HomeController {
             model.addAttribute("arrivalAirport",airportService.getAirport(flightForm.getArrivalAirportCode()));
             List<FlightDAO> flights = flightService.getFlightsForCodes(flightForm.getDepartureAirportCode(),
                     flightForm.getArrivalAirportCode(), flightForm.getDepartureDate());
-            for(FlightDAO flight : flights){
-                flight.setArrivalDate(new Timestamp(0));
-                flight.getArrivalDate().setTime(flight.getDepartureDate().getTime() + flight.getFlightTime().getTime());
-            }
             model.addAttribute("flights",flights);
             model.addAttribute("dateToShow", flightService.getDateToShow(flightForm.getDepartureDate()));
 

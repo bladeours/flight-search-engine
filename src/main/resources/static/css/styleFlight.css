@@ -1,5 +1,5 @@
 #main {
-    height: 400px;
+    height: 550px;
     background-color: #f1f1f1;
     padding-top: 75px;
     margin-left: 0;
@@ -11,8 +11,37 @@
 #flightContainer {
     padding: 20px 80px 30px 80px;
     background-color: #d0d0d0;
-    width: 900px;
-    height: 170px;
+    width: 1000px;
+    height: 250px;
     border-radius: 10px;
 
 }
+
+#departureAirport {
+    border-left-width: 1px;
+    border-left-color: black;
+    border-left-style: dotted;
+}
+
+#time {
+    border-left-width: 1px;
+    border-left-color: black;
+    border-left-style: dotted;
+    padding: 15px;
+}
+#timeParagraph {
+    margin-top: 11px;
+    margin-bottom: 11px;
+}
+
+
+#arrivalAirport {
+    border-left-width: 1px;
+    border-left-color: black;
+    border-left-style: dotted;
+}
+
+#buttonContainer {
+    margin-top: 50px;
+}
+

@@ -10,6 +10,7 @@ import com.flight.search.engine.service.FlightService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,11 +32,17 @@ public class FlightServiceImpl implements FlightService {
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
         List<FlightDAO> flights;
+
         try {
             flights = objectMapper.readValue(responseBody, new TypeReference<>() {});
+            for(FlightDAO flight : flights){
+                flight.setArrivalDate(new Timestamp(0));
+                flight.getArrivalDate().setTime(flight.getDepartureDate().getTime() + flight.getFlightTime().getTime());
+            }
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
         return flights;
     }
 
@@ -46,6 +53,25 @@ public class FlightServiceImpl implements FlightService {
         String dateToShow =  capitalize(localDateTime.getDayOfWeek().toString()) + " " + localDateTime.getDayOfMonth() +
                  " " + capitalize(localDateTime.getMonth().toString() + ", " + localDateTime.getYear());
         return dateToShow;
+    }
+
+    @Override
+    public FlightDAO getFlight(String id) {
+        WebClient client = WebClient.create("");
+        WebClient.ResponseSpec responseSpec = client.get()
+                .uri("http://localhost:8082/flight/" + id)
+                .retrieve();
+
+        String responseBody = responseSpec.bodyToMono(String.class).block();
+        FlightDAO flight;
+        try {
+            flight = objectMapper.readValue(responseBody, new TypeReference<>() {});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        flight.setArrivalDate(new Timestamp(0));
+        flight.getArrivalDate().setTime(flight.getDepartureDate().getTime() + flight.getFlightTime().getTime());
+        return  flight;
     }
 
     private static String capitalize(String str) {

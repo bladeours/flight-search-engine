@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" type="text/css" href="../static/css/styleFlight.css"/>
     <meta charset="UTF-8">
@@ -16,8 +16,57 @@
     </section>
     <section id="main">
         <div class="container" id="flightContainer">
-            lol
+            <div class="row text-center">
+                    <h1 th:text="${flight.getCompany().getName()}"></h1>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="row" id="departureAirport">
+                        <div class="col">
+                            <h6 style="margin-bottom: 0" th:text="${#dates.format(flight.getDepartureDate(), 'HH:mm')} + ' ' +
+                               ${flight.getDepartureAirport().getCity()} + ' (' + ${flight.getDepartureAirport().getCode()} + ')'"></h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="time">
+                            <p class="align-middle" id="timeParagraph" th:text="${flight.getFlightTime().getHours()} + 'h' + ${flight.getFlightTime().getMinutes()} + 'min'"></p>
+                        </div>
+                    </div>
+                    <div class="row" id="arrivalAirport">
+                        <div class="col">
+                            <h6 style="margin-bottom: 0" th:text="${#dates.format(flight.getArrivalDate(), 'HH:mm')} + ' ' +
+                               ${flight.getArrivalAirport().getCity()} + ' (' + ${flight.getArrivalAirport().getCode()} + ')'"></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="col text-end">
+                        <span class="fw-bold" th:text="'Price: ' + ${#numbers.formatDecimal(flight.getPrice(),1,2,'POINT')} + '$'"></span>
+                    </div>
+                    <div class="col text-end">
+                        <span th:text="'Flight number: ' + ${#strings.toUpperCase(#strings.substring(flight.getCompany().getName(),0,2))}
+                        + ' ' + ${#numbers.formatInteger(flight.getId(),6)}"></span>
+                    </div>
+                    <div class="col text-end">
+                        Carbon emissions estimate: 82 kg
+                    </div>
+                    <div class="col text-end">
+                        <span th:text="'Averange legroom: ' + ${#numbers.formatDecimal(T(java.lang.Math).floor(T(java.lang.Math).random()*40 + 70),1,0)}
+                        + 'cm'"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col">
+                    <button class="btn btn-primary btn-lg">Take this flight!</button>
+                </div>
+            </div>
         </div>
+        <div class="container text-center" id="buttonContainer">
+            <button class="btn btn-outline-primary" onclick="history.back()">Back to flights</button>
+        </div>
+
     </section>
 
     <footer th:replace="template :: footer"></footer>

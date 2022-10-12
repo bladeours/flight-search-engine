@@ -80,7 +80,7 @@
         <div class="container" th:unless="${departureAirport != null}">
             <h1 class="text-center">Find your dream flight!</h1>
         </div>
-        <a href="/flight"  th:each="flight: ${flights}">
+        <a  th:href="'/flight/' + ${flight.getId()}"  th:each="flight: ${flights}">
         <div  class="container" id="flightContainer">
             <div class="row text-center">
                 <div class="col">
@@ -89,14 +89,14 @@
             </div>
             <div class="row">
                 <div class="col-md-auto">
-                    <h5 class="hour" th:text="${#dates.format(flight.getDepartureDate(), 'HH:mm')}"/>
+                    <h5 class="time" th:text="${#dates.format(flight.getDepartureDate(), 'HH:mm')}"/>
                     <p th:text="${flight.getDepartureAirport().getCode()}"/>
                 </div>
                 <div class="col">
                     <hr class="divider">
                 </div>
                 <div class="col-md-auto">
-                    <h5 class="hour" th:text="${#dates.format(flight.getArrivalDate(), 'HH:mm')}" />
+                    <h5 class="time" th:text="${#dates.format(flight.getArrivalDate(), 'HH:mm')}" />
                     <p th:text="${flight.getArrivalAirport().getCode()}"/>
                 </div>
             </div>
