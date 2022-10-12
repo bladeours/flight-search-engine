@@ -6,8 +6,16 @@
     background-repeat: no-repeat;
 }
 
-a, a:visited, a:link, a:active, a:hover, a:focus {
+a, a:visited, a:link, a:active, a:hover, a:focus, a:visited:hover {
     color:black;
     text-decoration:none;
     outline: 0;
+}
+
+
+#textLogoDiv {
+    margin: 0;
+    top: 50%;
+    /*-ms-transform: translateY(50%);*/
+    transform: translateY(100%);
 }

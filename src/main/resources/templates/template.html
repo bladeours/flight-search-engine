@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" href="../static/css/styleTemplate.css"/>
     <meta charset="UTF-8">
     <title>Flight Search Engine</title>
     <link th:href="@{/css/styleHome.css}" rel="stylesheet">
@@ -12,7 +13,14 @@
 <body>
 
 <section id="logo" th:style="'background-image: url(/images/vacation_banner.jpg)'" th:fragment="logo">
+    <div class="container">
+        <div class="row text-center" id="textLogoDiv" >
+            <a href="/">
+                <h1 class="display-1">RafonzoFlight</h1>
+            </a>
+        </div>
 
+    </div>
 </section>
 
 <footer class="text-center text-lg-start bg-light text-muted" th:fragment="footer">
