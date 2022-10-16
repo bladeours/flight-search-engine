@@ -17,7 +17,7 @@ REST API with flight data, so I had to create [flight generator](https://github.
 * Java 17
 * Spring 2.7.3
 * Thymeleaf
-* Maven
+* Bootstrap
 
 ## Setup
 // TODO
