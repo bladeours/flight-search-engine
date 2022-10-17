@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
 <!--    <link rel="stylesheet" type="text/css" href="../static/css/styleHome.css"/>-->
     <link rel="stylesheet" type="text/css" href="../static/css/styleHome.css"/>
@@ -14,7 +15,9 @@
 
 </head>
 <body>
-    <section th:replace="template :: logo"></section>
+
+    <section th:replace="template :: header"></section>
+
     <div id="search" class="container">
         <form method="post" th:action="@{/search}" th:object="${flightForm}" >
             <div class="row">
@@ -78,7 +81,11 @@
             <p class="text-center" th:text="${dateToShow}"/>
         </div>
         <div class="container" th:unless="${departureAirport != null}">
-            <h1 class="text-center">Find your dream flight!</h1>
+            <h1 class="text-center">
+                <span sec:authorize="isAuthenticated()">
+                    Hello <span sec:authentication="name"></span> :)</span>
+                Find your dream flight!
+            </h1>
         </div>
         <a  th:href="'/flight/' + ${flight.getId()}"  th:each="flight: ${flights}">
         <div  class="container" id="flightContainer">
