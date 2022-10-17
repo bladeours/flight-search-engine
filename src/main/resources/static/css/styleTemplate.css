@@ -19,3 +19,17 @@ a, a:visited, a:link, a:active, a:hover, a:focus, a:visited:hover {
     /*-ms-transform: translateY(50%);*/
     transform: translateY(100%);
 }
+
+#logout {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    text-decoration: none;
+    cursor: pointer;
+    color:#f1f1f1  !important;
+}
+
+.nav-link{
+    color:#f1f1f1  !important;
+
+}
