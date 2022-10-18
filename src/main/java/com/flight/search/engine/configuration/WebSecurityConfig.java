@@ -1,13 +1,14 @@
 package com.flight.search.engine.configuration;
 
+import com.flight.search.engine.service.implementation.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -29,9 +30,22 @@ public class WebSecurityConfig {
     @Value("${spring.datasource.driver-class-name}")
     private String driver;
 
+    private final UserDetailsServiceImpl userDetailsService;
+
+    public WebSecurityConfig(@Lazy UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
     @Bean
     DataSource dataSource(){
-
         DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName(driver);
         dataSourceBuilder.username(username);
@@ -43,47 +57,24 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests((requests) -> requests
-                .antMatchers("/","/search","/flight/**", "/**/*.{js,html,css}").permitAll()
+                .antMatchers("/","/search","/flight/**","/registration","/register","/**/*.{js,html,css}").permitAll()
                 .anyRequest().authenticated()
         ).formLogin((form) -> form
                 .loginPage("/login")
                 .permitAll()
-        ).logout((logout) -> logout.logoutUrl("/logout").permitAll());
+        ).logout((logout) -> logout.logoutUrl("/logout").permitAll())
+                .userDetailsService(userDetailsService)
+                .authenticationProvider(authenticationProvider());
 
         return http.build();
     }
 
     @Bean
     JdbcUserDetailsManager users(DataSource dataSource, PasswordEncoder passwordEncoder){
-        UserDetails admin = User.builder()
-                .username("rafonzo2")
-                .password(passwordEncoder.encode("rafix"))
-                .roles("ADMIN")
-                .build();
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        jdbcUserDetailsManager.createUser(admin);
         return jdbcUserDetailsManager;
     }
 
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        UserDetails admin =
-//                User.withDefaultPasswordEncoder()
-//                        .username("admin")
-//                        .password("admin")
-//                        .roles("ADMIN")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
 
     @Bean
     PasswordEncoder passwordEncoder(){
