@@ -122,4 +122,21 @@ public class FlightDAO {
     public void setArrivalDate(Timestamp arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
+
+    @Override
+    public String toString() {
+        return "FlightDAO{" +
+                "id=" + id +
+                ", departureAirport=" + departureAirport +
+                ", arrivalAirport=" + arrivalAirport +
+                ", departureDate=" + departureDate +
+                ", arrivalDate=" + arrivalDate +
+                ", flightTime=" + flightTime +
+                ", allSeats=" + allSeats +
+                ", freeSeats=" + freeSeats +
+                ", price=" + price +
+                ", company=" + company +
+                ", distance_km=" + distance_km +
+                '}';
+    }
 }

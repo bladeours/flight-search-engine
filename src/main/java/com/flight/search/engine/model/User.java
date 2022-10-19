@@ -28,6 +28,27 @@ public class User {
     )
     private Set<Authority> roles = new HashSet<>();
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_flights",joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id"))
+    private Set<FlightMini> flightsIds = new HashSet<>();
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public Set<FlightMini> getFlightsIds() {
+        return flightsIds;
+    }
+
+    public void setFlightsIds(Set<FlightMini> flightsIds) {
+        this.flightsIds = flightsIds;
+    }
+
     public Set<Authority> getRoles() {
         return roles;
     }
@@ -60,11 +81,15 @@ public class User {
         this.username = username;
     }
 
-    public boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", enabled=" + enabled +
+                ", roles=" + roles +
+                ", flightsIds=" + flightsIds +
+                '}';
     }
 }
