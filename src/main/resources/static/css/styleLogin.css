@@ -6,3 +6,7 @@
     word-wrap: anywhere;
     color: #e00000;
 }
+
+#loginForm {
+    margin-top: -8vw;
+}

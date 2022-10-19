@@ -1,19 +1,22 @@
 package com.flight.search.engine.dao;
 
+import com.flight.search.engine.validate.annotation.PasswordMatches;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@PasswordMatches
 public class UserDAO {
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "can't be empty")
     private String username;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "can't be empty")
     private String password;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "can't be empty")
     private String matchingPassword;
 
     public UserDAO() {
