@@ -1,12 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" href="../static/css/styleProfile.css"/>
+    <link th:href="@{/css/styleProfile.css}" rel="stylesheet">
     <th:block th:replace="template :: links"/>
     <meta charset="UTF-8">
     <title>Profile</title>
 </head>
 <body>
 <section th:replace="template :: header"></section>
+<section id="background">
+    <div class="container" id="root">
+        <div class="row">
+            <div class="col text-center" id="details">
+                <h1 class="display-4">
+                    User Details</h1>
+            </div>
+            <div class="col text-center" id="cart">
+                <h1 class="display-4" id="headerCart">Cart</h1>
+                <div id="flights" class="overflow-auto text-center">
+                    <div class="flight" th:each="flight: ${flights}">
+                        <div class="row text-center">
+                            <div class="col text-center">
+                                <span th:text="${flight.getCompany().getName()}"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-start">
+                                <span th:text="${flight.getDepartureAirport().getCode()}"></span>
+                                ->
+                                <span th:text="${flight.getArrivalAirport().getCode()}"></span>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-start">
+                               <span th:text="${flight.getDepartureAirport().getCity()}"></span>
+                                ->
+                                <span th:text="${flight.getArrivalAirport().getCity()}"></span>
+                            </div>
+                            <div class="col text-end price">
+                                <span th:text="${#numbers.formatDecimal(flight.getPrice(),1,2,'POINT')}"></span>$
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-start">
+                                <span style="margin-bottom: 0" th:text="${#dates.format(flight.getArrivalDate(), 'HH:mm')} + ' ' +
+                               ${flight.getArrivalAirport().getCity()} + ' (' + ${flight.getArrivalAirport().getCode()} + ')'"></span>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div id="summary">
+                    <div class="row text-center">
+                        <div class="col">
+
+                            <h6 th:text="'Total: ' + ${#numbers.formatDecimal(sum,1,2,'POINT')} + '$'"></h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-primary btn-lg">Buy tickets!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <footer th:replace="template :: footer"></footer>
 </body>
 </html>

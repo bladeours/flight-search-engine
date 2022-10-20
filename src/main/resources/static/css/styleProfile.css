@@ -1,0 +1,60 @@
+#background {
+    background-color: #f1f1f1;
+    height: 350px;
+    width: 100%;
+    margin: 0;
+}
+
+#root{
+    height: 350px;
+    width: 70%;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    margin-top: -5vw;
+}
+
+#details {
+    border-radius: 10px;
+    height: 400px;
+    margin-right: 40px;
+    background-color: #cccbcb;
+}
+
+#cart{
+    border-radius: 10px;
+    height: 400px;
+    margin-left: 40px;
+    background-color: #cccbcb;
+    padding-right: 0;
+    padding-left: 0;
+}
+#headerCart {
+    border-radius: 10px 10px 0px 0px;
+    background-color: #e3e3e3;
+    margin-bottom: 0;
+}
+#flights{
+    height: 250px;
+    background-color: #e3e3e3;
+
+}
+
+#summary{
+    alignment: bottom;
+    /*background-color: #cccbcb;*/
+    height: 4.5rem;
+
+}
+.flight{
+    width: 90%;
+    margin: auto;
+    /*border-bottom-color: gray;*/
+    /*border-bottom-width: 1px;*/
+    /*border-bottom-style: solid;*/
+    /*margin-right: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+}

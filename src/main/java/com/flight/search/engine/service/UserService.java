@@ -14,6 +14,5 @@ import java.util.List;
 public interface UserService {
     void registerUser(UserDAO userDAO);
     User getUserByUsername(String username);
-    void addToCart(Long flightId, User user);
-    List<FlightDAO> getCart(User user);
+
 }

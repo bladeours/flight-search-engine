@@ -51,24 +51,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.getUserByUsername(username);
     }
 
-    @Override
-    public void addToCart(Long flightId, User user) {
-        Set<FlightMini> flightMiniSet =  user.getFlightsIds();
-        FlightMini flightMini = new FlightMini();
-        flightMini.setIdFromApi(flightId);
-        flightMiniSet.add(flightMini);
-        user.setFlightsIds(flightMiniSet);
-        userRepository.save(user);
-    }
 
-    @Override
-    public List<FlightDAO> getCart(User user) {
-        List<FlightDAO> flights = new ArrayList<>();
-        for(FlightMini flightMini: user.getFlightsIds()){
-            flights.add(flightService.getFlight(String.valueOf(flightMini.getIdFromApi())));
-        }
-        return flights;
-    }
 
     private String encryptPassword(String password){
         return BCrypt.hashpw(password, BCrypt.gensalt());
