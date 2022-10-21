@@ -20,7 +20,7 @@
     border-radius: 10px;
     height: 400px;
     margin-right: 40px;
-    background-color: #cccbcb;
+    background-color: #e3e3e3;
 }
 
 #cart{
@@ -44,17 +44,16 @@
 
 #summary{
     alignment: bottom;
-    /*background-color: #cccbcb;*/
     height: 4.5rem;
 
 }
 .flight{
     width: 90%;
     margin: auto;
-    /*border-bottom-color: gray;*/
-    /*border-bottom-width: 1px;*/
-    /*border-bottom-style: solid;*/
-    /*margin-right: 0;*/
-    /*left: 0;*/
-    /*right: 0;*/
+
+}
+
+#allDetails{
+    width: 70%;
+    margin: auto;
 }
