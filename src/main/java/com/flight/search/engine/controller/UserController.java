@@ -1,6 +1,8 @@
 package com.flight.search.engine.controller;
 
+import com.flight.search.engine.dao.PasswordDTO;
 import com.flight.search.engine.dao.UserDAO;
+import com.flight.search.engine.exception.PasswordValidationException;
 import com.flight.search.engine.exception.UserAlreadyExistsException;
 import com.flight.search.engine.model.User;
 import com.flight.search.engine.repository.UserRepository;
@@ -9,6 +11,7 @@ import com.flight.search.engine.service.FlightService;
 import com.flight.search.engine.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -60,9 +63,28 @@ public class UserController {
     @RequestMapping("/profile")
     public String showUserProfile(Principal principal, Model model){
         User user = userService.getUserByUsername(principal.getName());
-        System.out.println(cartService.getCart(user));
         model.addAttribute("flights",cartService.getCart(user));
         model.addAttribute("sum",cartService.sumPrices(user));
+        model.addAttribute("password", new PasswordDTO());
+        return "userProfile";
+    }
+
+    @PostMapping("/changePassword")
+    public String changePassword(@ModelAttribute("password") @Valid PasswordDTO passwordDTO,
+                                 BindingResult bindingResult, Model model, Principal principal ){
+
+        User user = userService.getUserByUsername(principal.getName());
+        model.addAttribute("flights",cartService.getCart(user));
+        model.addAttribute("sum",cartService.sumPrices(user));
+        if(!bindingResult.hasErrors()){
+            if(userService.checkPassword(user,passwordDTO.getOldPassword())){
+                model.addAttribute("errorMessage", "incorrect current password");
+                return "userProfile";
+            }
+            userService.changePassword(user, passwordDTO.getNewPassword());
+            model.addAttribute("successMessage", "password changed");
+        }
+
         return "userProfile";
     }
 

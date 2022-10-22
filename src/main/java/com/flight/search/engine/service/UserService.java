@@ -14,5 +14,6 @@ import java.util.List;
 public interface UserService {
     void registerUser(UserDAO userDAO);
     User getUserByUsername(String username);
-
+    void changePassword(User user, String password);
+    boolean checkPassword(User user, String password);
 }

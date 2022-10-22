@@ -57,3 +57,21 @@
     width: 70%;
     margin: auto;
 }
+
+#confirmPassword, #newPassword, #currentPassword{
+    margin: auto;
+    width: 135px;
+}
+
+#submitButton{
+    margin-top: 20px;
+    width: 200px;
+}
+.error-custom {
+    word-wrap: anywhere;
+    color: #e00000;
+}
+.success-custom{
+    word-wrap: anywhere;
+    color: #06c200;
+}
