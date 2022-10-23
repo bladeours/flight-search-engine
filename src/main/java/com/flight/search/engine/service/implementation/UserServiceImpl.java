@@ -1,22 +1,16 @@
 package com.flight.search.engine.service.implementation;
 
-import com.flight.search.engine.dao.FlightDAO;
 import com.flight.search.engine.dao.UserDAO;
 import com.flight.search.engine.exception.UserAlreadyExistsException;
 import com.flight.search.engine.model.Authority;
-import com.flight.search.engine.model.FlightMini;
 import com.flight.search.engine.model.User;
 import com.flight.search.engine.repository.UserRepository;
 import com.flight.search.engine.service.AuthorityService;
-import com.flight.search.engine.service.FlightService;
 import com.flight.search.engine.service.UserService;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -58,6 +52,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkPassword(User user, String password) {
         return BCrypt.checkpw(password,user.getPassword());
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
     }
 
 

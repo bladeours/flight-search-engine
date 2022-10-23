@@ -25,7 +25,8 @@
                     </div>
                     <div class="row">
                         <div class="col" id="time">
-                            <p class="align-middle" id="timeParagraph" th:text="${flight.getFlightTime().getHours()} + 'h' + ${flight.getFlightTime().getMinutes()} + 'min'"></p>
+                            <p class="align-middle" id="timeParagraph"
+                               th:text="${flight.getFlightTime().getHours()} + 'h' + ${flight.getFlightTime().getMinutes()} + 'min'"></p>
                         </div>
                     </div>
                     <div class="row" id="arrivalAirport">

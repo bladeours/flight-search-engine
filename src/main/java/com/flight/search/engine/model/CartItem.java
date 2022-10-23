@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "flight")
-public class FlightMini {
+@Table(name = "cart_items")
+public class CartItem {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,8 +15,8 @@ public class FlightMini {
     @Column(name = "id_from_api")
     private Long idFromApi;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_flights",joinColumns = @JoinColumn(name = "flight_id"),
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name = "users_cart_items",joinColumns = @JoinColumn(name = "flight_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users = new HashSet<>();
 
@@ -51,4 +51,6 @@ public class FlightMini {
                 ", idFromApi=" + idFromApi +
                 '}';
     }
+
+
 }

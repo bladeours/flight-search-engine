@@ -28,10 +28,10 @@ public class User {
     )
     private Set<Authority> roles = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_flights",joinColumns = @JoinColumn(name = "user_id"),
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name = "users_cart_items",joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "flight_id"))
-    private Set<FlightMini> flightsIds = new HashSet<>();
+    private Set<CartItem> cartItems = new HashSet<>();
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
@@ -41,12 +41,12 @@ public class User {
         return enabled;
     }
 
-    public Set<FlightMini> getFlightsIds() {
-        return flightsIds;
+    public Set<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setFlightsIds(Set<FlightMini> flightsIds) {
-        this.flightsIds = flightsIds;
+    public void setCartItems(Set<CartItem> flightsIds) {
+        this.cartItems = flightsIds;
     }
 
     public Set<Authority> getRoles() {
@@ -89,7 +89,18 @@ public class User {
                 ", username='" + username + '\'' +
                 ", enabled=" + enabled +
                 ", roles=" + roles +
-                ", flightsIds=" + flightsIds +
+                ", flightsIds=" + cartItems +
                 '}';
     }
+
+    public void addCartItem(CartItem cartItem){
+        this.cartItems.add(cartItem);
+        cartItem.getUsers().add(this);
+    }
+
+    public void removeCartItem(CartItem cartItem) {
+        this.cartItems.remove(cartItem);
+        cartItem.getUsers().remove(this);
+    }
+
 }

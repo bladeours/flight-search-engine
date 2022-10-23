@@ -26,4 +26,12 @@ public class CartController {
         cartService.addToCart(Long.valueOf(id), user);
         return "redirect:/profile";
     }
+
+    @GetMapping("/removeFromCart/{id}")
+    public String removeFromCart(@PathVariable String id, Principal principal){
+        User user = userService.getUserByUsername(principal.getName());
+        cartService.removeFromCart(Long.valueOf(id), user);
+        return "redirect:/profile";
+    }
+
 }
