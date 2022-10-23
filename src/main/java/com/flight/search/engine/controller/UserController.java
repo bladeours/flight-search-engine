@@ -78,13 +78,12 @@ public class UserController {
         model.addAttribute("sum",cartService.sumPrices(user));
         if(!bindingResult.hasErrors()){
             if(userService.checkPassword(user,passwordDTO.getOldPassword())){
-                model.addAttribute("errorMessage", "incorrect current password");
+                userService.changePassword(user, passwordDTO.getNewPassword());
+                model.addAttribute("successMessage", "password changed");
                 return "userProfile";
             }
-            userService.changePassword(user, passwordDTO.getNewPassword());
-            model.addAttribute("successMessage", "password changed");
+            model.addAttribute("errorMessage", "incorrect current password");
         }
-
         return "userProfile";
     }
 

@@ -23,12 +23,10 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final AuthorityService authorityService;
-    private final FlightService flightService;
 
-    public UserServiceImpl(UserRepository userRepository, AuthorityService authorityService, FlightService flightService) {
+    public UserServiceImpl(UserRepository userRepository, AuthorityService authorityService) {
         this.userRepository = userRepository;
         this.authorityService = authorityService;
-        this.flightService = flightService;
     }
 
     @Override
