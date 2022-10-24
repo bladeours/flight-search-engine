@@ -20,18 +20,26 @@ public class User {
     @Column
     boolean enabled;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_authorities",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
-    private Set<Authority> roles = new HashSet<>();
+    private Set<Authority> authorities = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable(name = "users_cart_items",joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "flight_id"))
-    private Set<CartItem> cartItems = new HashSet<>();
+    @OneToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH,
+            CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
@@ -41,20 +49,12 @@ public class User {
         return enabled;
     }
 
-    public Set<CartItem> getCartItems() {
-        return cartItems;
+    public Set<Authority> getAuthorities() {
+        return authorities;
     }
 
-    public void setCartItems(Set<CartItem> flightsIds) {
-        this.cartItems = flightsIds;
-    }
-
-    public Set<Authority> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Authority> roles) {
-        this.roles = roles;
+    public void setAuthorities(Set<Authority> roles) {
+        this.authorities = roles;
     }
 
     public Long getId() {
@@ -88,19 +88,18 @@ public class User {
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
                 ", enabled=" + enabled +
-                ", roles=" + roles +
-                ", flightsIds=" + cartItems +
+                ", roles=" + authorities +
+//                ", flightsIds=" + cartItems +
                 '}';
     }
 
-    public void addCartItem(CartItem cartItem){
-        this.cartItems.add(cartItem);
-        cartItem.getUsers().add(this);
+    public void addAuthority(Authority authority){
+        this.authorities.add(authority);
+        authority.getUsers().add(this);
     }
-
-    public void removeCartItem(CartItem cartItem) {
-        this.cartItems.remove(cartItem);
-        cartItem.getUsers().remove(this);
+    public void removeAuthority(Authority authority){
+        this.authorities.remove(authority);
+        authority.getUsers().remove(this);
     }
 
 }

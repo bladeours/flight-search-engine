@@ -18,10 +18,10 @@
                 <div class="container" id="allDetails">
                     <div class="row">
                         <div class="col text-start">
-                            Username:
+                            <h5>Username:</h5>
                         </div>
                         <div class="col">
-                            <span th:text="${#authentication.getName()}"></span>
+                            <h5 th:text="${#authentication.getName()}"></h5>
                         </div>
                     </div>
                     <div class="row">
@@ -32,22 +32,38 @@
                                            th:field="*{oldPassword}" type="password">
                             </div>
                             <div class="row">
+                                <div class="col">
                                     <label for="newPassword">New Password:</label>
                                     <input id="newPassword" class="form-control"
                                            th:field="*{newPassword}" type="password">
-                            </div>
-                            <div class="row">
+                                </div>
+
+<!--                            </div>-->
+<!--                            <div class="row">-->
+                                <div class="col">
                                     <label for="confirmPassword">Confirm Password:</label>
                                     <input id="confirmPassword" class="form-control"
                                            th:field="*{confirmPassword}" type="password">
+                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="col text-center">
                                     <button id="submitButton" type="submit" class="btn btn-primary btn-lg">Change password</button>
                                 </div>
-                                <label th:text="${errorMessage}" class="error-custom"></label>
-                                <label th:text="${successMessage}" class="success-custom"></label>
-                                <label th:if="${#fields.hasAnyErrors()}" th:text="${#fields.allErrors().get(0)}" class="error-custom"/>
+                                <div id="errorMessages">
+                                    <label th:text="${errorMessage}" class="error-custom"></label>
+                                    <label th:text="${successMessage}" class="success-custom"></label>
+                                    <label th:if="${#fields.hasAnyErrors()}" th:text="${#fields.allErrors().get(0)}" class="error-custom"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a th:href="@{/removeUser}">
+                                        <button type="button" class="btn btn-danger btn-sm">Remove account</button>
+
+                                    </a>
+                                </div>
                             </div>
                         </form>
                     </div>

@@ -14,4 +14,8 @@ public class FlightSearchEngineApplication {
     //TODO add luggage
     //TODO add admin page
     //TODO do not allow to see /login to logged users
+    //TODO add tests
+    //TODO separate CartService and CartItemService
+    //TODO add logout after removing
+    //TODO secure password
 }

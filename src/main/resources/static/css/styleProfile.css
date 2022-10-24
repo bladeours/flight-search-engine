@@ -79,3 +79,7 @@
 .price{
 
 }
+
+#errorMessages {
+    height: 40px;
+}

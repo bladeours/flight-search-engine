@@ -87,5 +87,10 @@ public class UserController {
         return "userProfile";
     }
 
-
+    @GetMapping("/removeUser")
+    public String removeUser(Principal principal){
+        User user = userService.getUserByUsername(principal.getName());
+        userService.removeUser(user);
+        return "redirect:/";
+    }
 }
