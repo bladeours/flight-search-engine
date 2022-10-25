@@ -1,13 +1,19 @@
 #background{
     background-color: #f1f1f1;
-    height: 350px;
+    /*height: 750px;*/
     width: 100%;
     padding: 30px;
 }
 #usersCol{
+    height: 100%;
     /*padding: 20px;*/
     border-right-style: solid;
     border-right-width: 2px;
     border-right-color: #a4a3a3;
 
 }
+.container {
+    margin: 0 auto !important;
+    max-width:100%;
+}
+

@@ -74,6 +74,29 @@ public class FlightServiceImpl implements FlightService {
         return  flight;
     }
 
+    @Override
+    public List<FlightDAO> getAllFlights() {
+        WebClient client = WebClient.create("");
+        WebClient.ResponseSpec responseSpec = client.get()
+                .uri("http://localhost:8082/flight/flights")
+                .retrieve();
+
+        String responseBody = responseSpec.bodyToMono(String.class).block();
+        List<FlightDAO> flights;
+
+        try {
+            flights = objectMapper.readValue(responseBody, new TypeReference<>() {});
+            for(FlightDAO flight : flights){
+                flight.setArrivalDate(new Timestamp(0));
+                flight.getArrivalDate().setTime(flight.getDepartureDate().getTime() + flight.getFlightTime().getTime());
+            }
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return flights;
+    }
+
     private static String capitalize(String str) {
         if(str == null || str.isEmpty()) {
             return str;

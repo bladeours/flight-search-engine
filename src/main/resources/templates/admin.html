@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" href="../static/css/styleAdmin.css"/>
     <meta charset="UTF-8">
     <title>Admin page</title>
     <link th:href="@{/css/styleAdmin.css}" rel="stylesheet">
@@ -9,8 +10,8 @@
 <body>
     <section th:replace="template :: header"></section>
     <section id="background">
-        <div class="container">
-            <div class="row">
+        <div class="container-fluid" style="height: 100%">
+            <div class="row" style="height: 100%">
                 <div class="col" id="usersCol">
                     <table id="usersTable" class="table table-striped">
                         <thead>
@@ -23,6 +24,7 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         <tr th:each="user: ${users}">
                             <td th:text="${user.getId()}"></td>
                             <td th:text="${user.getUsername()}"></td>
@@ -32,7 +34,6 @@
                                         th:onchange="'window.location.href = \'' + @{/admin/changeEnabled/{id}(id=${user.getId()})} + '\''">
                                     <option selected  th:text="${user.isEnabled()}"></option>
                                     <option th:text="${!user.isEnabled()}"></option>
-
                                 </select>
                             </td>
                             <td>
@@ -46,7 +47,30 @@
                     </table>
                 </div>
                 <div class="col">
-
+                    <table id="flightsTable" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Departure airport</th>
+                            <th>Arrival airport</th>
+                            <th>Departure date</th>
+                            <th>Price</th>
+                            <th>Company</th>
+                            <th>Distance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="flight: ${flights}">
+                            <td th:text="${flight.getId()}"></td>
+                            <td th:text="${flight.getDepartureAirport().getCode()}"></td>
+                            <td th:text="${flight.getArrivalAirport().getCode()}"></td>
+                            <td th:text="${#dates.format(flight.getDepartureDate(), 'YYYY-MM-dd HH:mm')}"></td>
+                            <td th:text="${#numbers.formatDecimal(flight.getPrice(),1,2,'POINT')} + '$'"></td>
+                            <td th:text="${flight.getCompany().getName()}"></td>
+                            <td th:text="${flight.getDistance_km()} + 'km'"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -62,6 +86,9 @@
     <script>
         $(document).ready(function () {
             $('#usersTable').DataTable();
+        });
+        $(document).ready(function () {
+            $('#flightsTable').DataTable();
         });
     </script>
 

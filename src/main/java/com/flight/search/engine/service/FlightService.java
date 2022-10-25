@@ -11,4 +11,6 @@ public interface FlightService {
     String getDateToShow(String Date);
 
     FlightDAO getFlight(String id);
+
+    List<FlightDAO> getAllFlights();
 }
