@@ -36,6 +36,7 @@
                                     <label for="newPassword">New Password:</label>
                                     <input id="newPassword" class="form-control"
                                            th:field="*{newPassword}" type="password">
+
                                 </div>
 
 <!--                            </div>-->
@@ -52,8 +53,8 @@
                                     <button id="submitButton" type="submit" class="btn btn-primary btn-lg">Change password</button>
                                 </div>
                                 <div id="errorMessages">
-                                    <label th:text="${errorMessage}" class="error-custom"></label>
-                                    <label th:text="${successMessage}" class="success-custom"></label>
+                                    <label th:if="${errorMessage}"th:text="${errorMessage}" class="error-custom"></label>
+                                    <label th:if="${successMessage}" th:text="${successMessage}" class="success-custom"></label>
                                     <label th:if="${#fields.hasAnyErrors()}" th:text="${#fields.allErrors().get(0)}" class="error-custom"/>
                                 </div>
                             </div>

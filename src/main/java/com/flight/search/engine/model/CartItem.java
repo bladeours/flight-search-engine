@@ -14,7 +14,8 @@ public class CartItem {
     @Column(name = "id_from_api")
     private Long idFromApi;
 
-    @ManyToOne(cascade = { CascadeType.ALL})
+    @ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH,
+            CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
 

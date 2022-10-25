@@ -8,6 +8,7 @@ import com.flight.search.engine.model.CartItem;
 import com.flight.search.engine.model.User;
 import com.flight.search.engine.repository.CartItemRepository;
 import com.flight.search.engine.repository.CartRepository;
+import com.flight.search.engine.service.CartItemService;
 import com.flight.search.engine.service.CartService;
 import com.flight.search.engine.service.FlightService;
 import com.flight.search.engine.service.UserService;
@@ -19,17 +20,15 @@ import java.util.List;
 @Service
 public class CartServiceImpl implements CartService {
 
-    private final CartItemRepository cartItemRepository;
+    private final CartItemService cartItemService;
     private final FlightService flightService;
-    private final UserService userService;
     private final CartRepository cartRepository;
     private final ObjectMapper objectMapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    public CartServiceImpl(CartItemRepository cartItemRepository, FlightService flightService, UserService userService, CartRepository cartRepository) {
-        this.cartItemRepository = cartItemRepository;
+    public CartServiceImpl(CartItemService cartItemService, FlightService flightService, CartRepository cartRepository) {
+        this.cartItemService = cartItemService;
         this.flightService = flightService;
-        this.userService = userService;
         this.cartRepository = cartRepository;
     }
 
@@ -39,7 +38,7 @@ public class CartServiceImpl implements CartService {
         CartItem cartItem = new CartItem();
         cartItem.setIdFromApi(flightId);
         cartItem.setCart(user.getCart());
-        cartItemRepository.save(cartItem);
+        cartItemService.save(cartItem);
     }
 
     @Override
@@ -67,21 +66,17 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void removeFromCart(Long id, User user) {
-        CartItem cartItemToDelete = cartItemRepository.findById(id).get();
+        CartItem cartItemToDelete = cartItemService.findById(id);
         if(cartItemToDelete.getCart().getUser().equals(user)){
-            cartItemRepository.deleteById(id);
+            cartItemService.removeCartItemById(id);
         }
     }
 
-    @Override
-    public void removeCartItem(CartItem cartItem) {
-        cartItemRepository.delete(cartItem);
-    }
 
     @Override
     public void removeCart(Cart cart) {
         for(CartItem cartItem : cart.getCartItems()){
-            removeCartItem(cartItem);
+            cartItemService.removeCartItem(cartItem);
         }
         cartRepository.delete(cart);
     }

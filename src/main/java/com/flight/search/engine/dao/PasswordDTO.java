@@ -1,6 +1,7 @@
 package com.flight.search.engine.dao;
 
 import com.flight.search.engine.validate.annotation.PasswordMatches;
+import com.flight.search.engine.validate.annotation.ValidPassword;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ public class PasswordDTO {
     @NotNull
     @NotEmpty(message = "current password can't be empty")
     private String oldPassword;
+    @ValidPassword
     @NotNull
     @NotEmpty(message = "new password can't be empty")
     private String newPassword;

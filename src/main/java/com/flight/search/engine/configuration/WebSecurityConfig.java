@@ -58,11 +58,13 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests((requests) -> requests
                 .antMatchers("/","/search","/flight/**","/registration","/register","/**/*.{js,html,css}").permitAll()
+                .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
         ).formLogin((form) -> form
                 .loginPage("/login")
                 .permitAll()
-        ).logout((logout) -> logout.logoutUrl("/logout").permitAll())
+        ).logout((logout) -> logout.logoutUrl("/logout").permitAll()
+                        .logoutSuccessUrl("/"))
                 .userDetailsService(userDetailsService)
                 .authenticationProvider(authenticationProvider());
 

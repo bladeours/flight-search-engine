@@ -13,6 +13,6 @@ public interface CartService {
     List<CartItemDTO> getCart(User user);
     double sumPrices(User user);
     void removeFromCart(Long id, User user);
-    void removeCartItem(CartItem cartItem);
+
     void removeCart(Cart cart);
 }

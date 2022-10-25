@@ -11,12 +11,15 @@ import com.flight.search.engine.service.FlightService;
 import com.flight.search.engine.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -36,6 +39,12 @@ public class UserController {
         this.cartService = cartService;
     }
 
+    @GetMapping("/login")
+    public String login(Principal principal){
+        if(principal == null) return "login";
+        System.out.println();
+        return "redirect:/";
+    }
 
     @GetMapping("/registration")
     public String showRegistrationForm(Model model){
@@ -61,7 +70,9 @@ public class UserController {
     }
 
     @RequestMapping("/profile")
-    public String showUserProfile(Principal principal, Model model){
+    public String showUserProfile(Principal principal, Model model, Authentication authentication){
+        System.out.println(authentication.getAuthorities());
+
         User user = userService.getUserByUsername(principal.getName());
         model.addAttribute("flights",cartService.getCart(user));
         model.addAttribute("sum",cartService.sumPrices(user));
@@ -88,9 +99,10 @@ public class UserController {
     }
 
     @GetMapping("/removeUser")
-    public String removeUser(Principal principal){
+    public String removeUser(Principal principal, HttpServletRequest httpServletRequest) throws ServletException {
         User user = userService.getUserByUsername(principal.getName());
         userService.removeUser(user);
+        httpServletRequest.logout();
         return "redirect:/";
     }
 }

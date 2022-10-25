@@ -20,7 +20,8 @@ public class User {
     @Column
     boolean enabled;
 
-    @ManyToMany(cascade = { CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH,
+            CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_authorities",
             joinColumns = @JoinColumn(name = "user_id"),

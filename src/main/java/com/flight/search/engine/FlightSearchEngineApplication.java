@@ -10,12 +10,9 @@ public class FlightSearchEngineApplication {
         SpringApplication.run(FlightSearchEngineApplication.class, args);
     }
     //TODO add info
-    //TODO add removing account
     //TODO add luggage
     //TODO add admin page
-    //TODO do not allow to see /login to logged users
     //TODO add tests
-    //TODO separate CartService and CartItemService
-    //TODO add logout after removing
-    //TODO secure password
+    //TODO add meta
+    //TODO add block with scripts to template
 }

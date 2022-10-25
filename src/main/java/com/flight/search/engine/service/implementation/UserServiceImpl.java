@@ -36,7 +36,7 @@ import java.util.HashSet;
         user.setEnabled(true);
         user.setUsername(userDAO.getUsername());
         user.setPassword(encryptPassword(userDAO.getPassword()));
-        HashSet<Authority> authorities = authorityService.getAuthoritiesByName("ADMIN", "USER");
+        HashSet<Authority> authorities = authorityService.getAuthoritiesByName( "USER");
         user.setAuthorities(authorities);
         user.setCart(new Cart());
         if(userExists(userDAO.getUsername())){
