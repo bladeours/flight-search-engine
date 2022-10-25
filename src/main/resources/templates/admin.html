@@ -1,16 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Admin page</title>
+    <link th:href="@{/css/styleAdmin.css}" rel="stylesheet">
   <th:block th:replace="template :: links"/>
 </head>
 <body>
-<section th:replace="template :: header"></section>
-<footer th:replace="template :: footer"></footer>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <section th:replace="template :: header"></section>
+    <section id="background">
+        <div class="container">
+            <div class="row">
+                <div class="col" id="usersCol">
+                    <table id="usersTable" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Authority</th>
+                            <th>Enable</th>
+                            <th>Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user: ${users}">
+                            <td th:text="${user.getId()}"></td>
+                            <td th:text="${user.getUsername()}"></td>
+                            <td th:text="${user.getAuthorities()}"></td>
+                            <td>
+                                <select class="form-select" aria-label="Default select example"
+                                        th:onchange="'window.location.href = \'' + @{/admin/changeEnabled/{id}(id=${user.getId()})} + '\''">
+                                    <option selected  th:text="${user.isEnabled()}"></option>
+                                    <option th:text="${!user.isEnabled()}"></option>
+
+                                </select>
+                            </td>
+                            <td>
+                                <a th:href="@{/admin/removeUser/{id}(id=${user.getId()})}">
+                                    <button class="btn btn-danger btn-sm">remove</button>
+                                </a>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer th:replace="template :: footer"></footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#usersTable').DataTable();
+        });
+    </script>
+
 </body>
 </html>

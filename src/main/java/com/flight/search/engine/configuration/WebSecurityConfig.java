@@ -58,7 +58,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests((requests) -> requests
                 .antMatchers("/","/search","/flight/**","/registration","/register","/**/*.{js,html,css}").permitAll()
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/admin").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
         ).formLogin((form) -> form
                 .loginPage("/login")
@@ -72,7 +72,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    JdbcUserDetailsManager users(DataSource dataSource, PasswordEncoder passwordEncoder){
+    JdbcUserDetailsManager users(DataSource dataSource){
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
         return jdbcUserDetailsManager;
     }

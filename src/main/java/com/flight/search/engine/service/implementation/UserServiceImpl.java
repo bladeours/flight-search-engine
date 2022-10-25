@@ -15,9 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Service
-        public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final AuthorityService authorityService;
@@ -71,6 +72,24 @@ import java.util.HashSet;
     public void removeUser(User user) {
         cartService.removeCart(user.getCart());
         userRepository.delete(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return (List<User>) userRepository.findAll();
+    }
+
+    @Override
+    public void removeUserById(long id) {
+        User user = userRepository.findById(id).get();
+        removeUser(user);
+    }
+
+    @Override
+    public void changeEnabled(long id) {
+        User user = userRepository.findById(id).get();
+        user.setEnabled(!user.isEnabled());
+        save(user);
     }
 
 

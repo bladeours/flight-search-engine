@@ -45,4 +45,9 @@ public class Authority {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

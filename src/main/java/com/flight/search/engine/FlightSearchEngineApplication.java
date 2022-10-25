@@ -15,4 +15,5 @@ public class FlightSearchEngineApplication {
     //TODO add tests
     //TODO add meta
     //TODO add block with scripts to template
+    //TODO add alert when removing
 }
