@@ -20,7 +20,7 @@ a, a:visited, a:link, a:active, a:hover, a:focus, a:visited:hover {
     transform: translateY(100%);
 }
 
-#logout {
+#logout, #infoButton {
     background: none!important;
     border: none;
     padding: 0!important;

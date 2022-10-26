@@ -37,9 +37,30 @@
                                 </select>
                             </td>
                             <td>
-                                <a th:href="@{/admin/removeUser/{id}(id=${user.getId()})}">
-                                    <button class="btn btn-danger btn-sm">remove</button>
-                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#removeUserModal">Remove</button>
+                                <div class="modal fade" id="removeUserModal" tabindex="-1" aria-labelledby="removeUserModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="removeUserModalLabel">
+                                                    Removing user <b><span th:text="${user.getUsername()}"></span></b>
+
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure that you want to remove this account?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <a th:href="@{/admin/removeUser/{id}(id=${user.getId()})}">
+                                                    <button type="button" class="btn btn-danger">Remove</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
 
                         </tr>
@@ -80,9 +101,6 @@
 
 
     <footer th:replace="template :: footer"></footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#usersTable').DataTable();
