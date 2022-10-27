@@ -85,14 +85,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-auto">
+                <div class="col text-center col-flight-code">
                     <h5 class="time" th:text="${#dates.format(flight.getDepartureDate(), 'HH:mm')}"/>
                     <p th:text="${flight.getDepartureAirport().getCode()}"/>
                 </div>
-                <div class="col">
+                <div class="col-8" id="col-divider">
                     <hr class="divider">
                 </div>
-                <div class="col-md-auto">
+                <div class="col text-center col-flight-code">
                     <h5 class="time" th:text="${#dates.format(flight.getArrivalDate(), 'HH:mm')}" />
                     <p th:text="${flight.getArrivalAirport().getCode()}"/>
                 </div>

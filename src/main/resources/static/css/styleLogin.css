@@ -1,5 +1,6 @@
 #background {
     background-color: #f1f1f1;
+    min-height: 70vh;
 }
 
 .error-custom {
@@ -8,5 +9,12 @@
 }
 
 #loginForm {
-    margin-top: -8vw;
+    margin-top: -9vh;
+    margin-bottom: 2%;
+}
+
+@media only screen and (max-width: 800px) {
+    #loginForm{
+        margin-top: 1vh;
+    }
 }

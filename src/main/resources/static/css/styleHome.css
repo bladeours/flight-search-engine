@@ -1,8 +1,9 @@
 #search{
     background-color: #a9a9a9;
     border-radius: 10px;
-    width: 500px;
-    padding: 10px;
+    /*width: 500px;*/
+    width: 35vw;
+    padding: 1%;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -14,16 +15,36 @@
 
 #searchButton {
     transform: translate(0%, 25%);
-    width: 90px;
+    width: 20%;
+    min-width: 80px;
 }
 
 #searchResult {
-    padding-top: 180px;
-    padding-bottom: 50px;
+    padding-top: 30vh;
+    padding-bottom: 2vh;
     width: 100%;
     background-color: #f1f1f1;
     margin: 0;
     height: 70vh;
+}
+
+#colDepartureDate {
+    margin: auto;
+    max-width: 50%;
+}
+
+.error-custom {
+    font-size: small;
+    word-wrap: anywhere;
+    color: #e00000;
+}
+
+#rowErrorSpaceAirport, #rowErrorSpaceDate {
+    height: 10%;
+}
+
+#rowDate {
+    height: 18px;
 }
 
 #destinationHeader {
@@ -31,9 +52,9 @@
 }
 
 #flightContainer {
-    padding: 20px 80px 30px 80px;
+    padding: 2% 5% 10% 5%;
     background-color: #d0d0d0;
-    width: 900px;
+    width: 65vw;
     height: 170px;
     border-radius: 10px;
     margin-bottom: 40px;
@@ -47,23 +68,46 @@
 .time{
     margin: 0;
 }
-
-#colDepartureDate {
-    margin-left: 150px;
-    margin-right: 150px;
+#col-divider{
+    max-width: 60%;
 }
 
-.error-custom {
-    font-size: small;
-    word-wrap: anywhere;
-    color: #e00000;
+#col-flight-code{
+    width: 20%;
 }
 
-#rowErrorSpaceAirport, #rowErrorSpaceDate {
-    height: 20px;
-}
+@media only screen and (max-width: 800px) {
+    #search{
+        background-color: #a9a9a9;
+        border-radius: 10px;
+        width: 80vw;
+        padding: 3%;
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        margin-top: 5vw;
+    }
 
-#rowDate {
-    height: 18px;
+    #searchResult {
+        padding-top: 35vh;
+        padding-bottom: 2vh;
+        width: 100%;
+        background-color: #f1f1f1;
+        margin: 0;
+        height: 70vh;
+        min-height: 550px;
+    }
+
+    #col-divider{
+        max-width: 30%;
+    }
+
+}
+@media only screen and (max-width: 320px) {
+    #col-divider{
+        max-width: 20%;
+    }
 }
 

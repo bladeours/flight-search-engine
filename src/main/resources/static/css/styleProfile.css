@@ -1,32 +1,35 @@
 #background {
     background-color: #f1f1f1;
-    height: 350px;
+    height: 50vh;
+    min-height: 350px;
     width: 100%;
     margin: 0;
 }
 
 #root{
-    height: 350px;
+    height: 40vh;
     width: 70%;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
-    margin-top: -5vw;
+    margin-top: -9vh;
 }
 
 #details {
     border-radius: 10px;
-    height: 400px;
-    margin-right: 40px;
+    height: 55vh;
+    margin-left: 5%;
     background-color: #e3e3e3;
+    max-height: 400px;
 }
 
 #cart{
     border-radius: 10px;
-    height: 400px;
-    margin-left: 40px;
+    max-height: 400px;
+    height: 55vh;
+    margin-right: 5%;
     background-color: #cccbcb;
     padding-right: 0;
     padding-left: 0;
@@ -37,7 +40,7 @@
     margin-bottom: 0;
 }
 #flights{
-    height: 250px;
+    height: 60%;
     background-color: #e3e3e3;
 
 }
@@ -60,12 +63,13 @@
 
 #confirmPassword, #newPassword, #currentPassword{
     margin: auto;
-    width: 135px;
+    width: 8vw;
 }
 
 #submitButton{
-    margin-top: 20px;
-    width: 200px;
+    margin-top: 5%;
+    max-width: 200px;
+    width: 15vw;
 }
 .error-custom {
     word-wrap: anywhere;
@@ -84,4 +88,52 @@
     height: 40px;
     font-size: smaller;
 
+}
+
+@media only screen and (max-width: 800px) {
+
+    #confirmPassword, #newPassword, #currentPassword{
+        margin: auto;
+        width: 50vw;
+    }
+    #submitButton{
+        width: 50vw;
+        max-width: none;
+        padding: 5% 0 5% 0;
+    }
+
+    #details{
+        /*margin-right: 0;*/
+        /*margin: 0;*/
+        height: 65vh;
+        max-height: none;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    #root{
+        /*height: 100vh;*/
+        margin-top: 2vh;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        /*text-align: center;*/
+
+    }
+
+    #background{
+        height: 170vh;
+    }
+    #cart{
+        min-width: 50%;
+        height: 80vh;
+        max-height: none;
+        /*margin-right: 0;*/
+        margin-bottom: 10%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    #flights {
+        height: 70%;
+    }
 }

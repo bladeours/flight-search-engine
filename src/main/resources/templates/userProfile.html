@@ -12,87 +12,7 @@
 <section id="background">
     <div class="container" id="root">
         <div class="row">
-            <div class="col text-center" id="details">
-                <h1 class="display-4">
-                    User Details</h1>
-                <div class="container" id="allDetails">
-                    <div class="row">
-                        <div class="col text-start">
-                            <h5>Username:</h5>
-                        </div>
-                        <div class="col">
-                            <h5 th:text="${#authentication.getName()}"></h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <form method="post" th:action="@{/changePassword}" th:object="${password}">
-                            <div class="row text-center">
-                                    <label for="currentPassword">Current Password:</label>
-                                    <input id="currentPassword" class="form-control" name="password"
-                                           th:field="*{oldPassword}" type="password">
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label for="newPassword">New Password:</label>
-                                    <input id="newPassword" class="form-control"
-                                           th:field="*{newPassword}" type="password">
 
-                                </div>
-
-<!--                            </div>-->
-<!--                            <div class="row">-->
-                                <div class="col">
-                                    <label for="confirmPassword">Confirm Password:</label>
-                                    <input id="confirmPassword" class="form-control"
-                                           th:field="*{confirmPassword}" type="password">
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <button id="submitButton" type="submit" class="btn btn-primary btn-lg">Change password</button>
-                                </div>
-                                <div id="errorMessages">
-                                    <label th:if="${errorMessage}"th:text="${errorMessage}" class="error-custom"></label>
-                                    <label th:if="${successMessage}" th:text="${successMessage}" class="success-custom"></label>
-                                    <label th:if="${#fields.hasAnyErrors()}" th:text="${#fields.allErrors().get(0)}" class="error-custom"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#removeUserModal">Remove account</button>
-                                    <div class="modal fade" id="removeUserModal" tabindex="-1" aria-labelledby="removeUserModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">
-                                                        Removing user <b><span th:text="${#authentication.getName()}"></span></b>
-
-                                                    </h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Are you sure that you want to remove this account?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <a th:href="@{/removeUser}">
-                                                        <button type="button" class="btn btn-danger">Remove</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
             <div class="col text-center" id="cart">
                 <h1 class="display-4" id="headerCart">Cart</h1>
                 <div id="flights" class="overflow-auto text-center">
@@ -148,6 +68,87 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col text-center" id="details">
+                <h1 class="display-4">
+                    User Details</h1>
+                <div class="container" id="allDetails">
+                    <div class="row">
+                        <div class="col text-start">
+                            <h5>Username:</h5>
+                        </div>
+                        <div class="col">
+                            <h5 th:text="${#authentication.getName()}"></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form method="post" th:action="@{/changePassword}" th:object="${password}">
+                            <div class="row text-center">
+                                <label for="currentPassword">Current Password:</label>
+                                <input id="currentPassword" class="form-control" name="password"
+                                       th:field="*{oldPassword}" type="password">
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="newPassword">New Password:</label>
+                                    <input id="newPassword" class="form-control"
+                                           th:field="*{newPassword}" type="password">
+
+                                </div>
+
+                                <!--                            </div>-->
+                                <!--                            <div class="row">-->
+                                <div class="col">
+                                    <label for="confirmPassword">Confirm Password:</label>
+                                    <input id="confirmPassword" class="form-control"
+                                           th:field="*{confirmPassword}" type="password">
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <button id="submitButton" type="submit" class="btn btn-primary btn-lg">Change password</button>
+                                </div>
+                                <div id="errorMessages">
+                                    <label th:if="${errorMessage}"th:text="${errorMessage}" class="error-custom"></label>
+                                    <label th:if="${successMessage}" th:text="${successMessage}" class="success-custom"></label>
+                                    <label th:if="${#fields.hasAnyErrors()}" th:text="${#fields.allErrors().get(0)}" class="error-custom"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#removeUserModal">Remove account</button>
+                                    <div class="modal fade" id="removeUserModal" tabindex="-1" aria-labelledby="removeUserModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                        Removing user <b><span th:text="${#authentication.getName()}"></span></b>
+
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure that you want to remove this account?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <a th:href="@{/removeUser}">
+                                                        <button type="button" class="btn btn-danger">Remove</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

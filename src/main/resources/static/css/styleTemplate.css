@@ -1,8 +1,7 @@
 
-
 #logo{
     width: 100%;
-    height: 350px;
+    height: 45vh;
     align-items: center;
     position: relative;
     background-repeat: no-repeat;
@@ -39,4 +38,14 @@ a, a:visited, a:link, a:active, a:hover, a:focus, a:visited:hover {
 }
 .info-link:hover{
     text-decoration: underline;
+}
+
+@media only screen and (max-width: 800px) {
+    #logo{
+        width: 100%;
+        height: 20vh;
+        align-items: center;
+        position: relative;
+        background-repeat: no-repeat;
+    }
 }

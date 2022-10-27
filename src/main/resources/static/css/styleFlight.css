@@ -1,18 +1,18 @@
 #main {
-    height: 550px;
+    height: 70vh;
     background-color: #f1f1f1;
-    padding-top: 75px;
+    padding-top: 5%;
     margin-left: 0;
     margin-right: 0;
-    /*display: inline-block;*/
     width: 100%;
+
 }
 
 #flightContainer {
-    padding: 20px 80px 30px 80px;
+    padding: 2% 5% 16% 5%;
     background-color: #d0d0d0;
-    width: 1000px;
-    height: 250px;
+    width: 75vw;
+    height: 30vh;
     border-radius: 10px;
 
 }
@@ -27,11 +27,11 @@
     border-left-width: 1px;
     border-left-color: black;
     border-left-style: dotted;
-    padding: 15px;
+    padding: 5%;
 }
 #timeParagraph {
-    margin-top: 11px;
-    margin-bottom: 11px;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 
@@ -45,3 +45,51 @@
     margin-top: 50px;
 }
 
+#mobileFlightContainer{
+    display: none;
+}
+
+@media only screen and (max-width: 800px) {
+    #flightContainer {
+        display: none;
+    }
+
+    #main {
+        height: 75vh;
+        background-color: #f1f1f1;
+        padding-top: 10%;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+
+    }
+
+    #mobileFlightContainer{
+        border-radius: 10px;
+        background-color: #d0d0d0;
+        padding: 2% 5% 16% 5%;
+        width: 75vw;
+        height: 55vh;
+        display:block;
+    }
+
+    #buttonRowMobile {
+        margin-top: 14%;
+    }
+    #priceRowMobile{
+        margin-top: 7%;
+    }
+
+    #timeMobile{
+        padding-top: 5%;
+        border-left-width: 1px;
+        border-left-color: black;
+        border-left-style: dotted;
+    }
+
+    #departureAirportMobile, #arrivalAirportMobile{
+        border-left-width: 1px;
+        border-left-color: black;
+        border-left-style: dotted;
+    }
+}

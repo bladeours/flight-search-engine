@@ -62,6 +62,49 @@
                 </div>
             </div>
         </div>
+        <div class="container" id="mobileFlightContainer">
+            <div class="row text-center">
+                <h1 th:text="${flight.getCompany().getName()}"></h1>
+            </div>
+            <div class="row" id="departureAirportMobile">
+                <h6 style="margin-bottom: 0" th:text="${#dates.format(flight.getDepartureDate(), 'HH:mm')} + ' ' +
+                     ${flight.getDepartureAirport().getCity()} + ' (' + ${flight.getDepartureAirport().getCode()} + ')'">
+                </h6>
+            </div>
+            <div class="row" id="timeMobile">
+                <p class="align-middle"
+                           th:text="${flight.getFlightTime().getHours()} + 'h' + ${flight.getFlightTime().getMinutes()} + 'min'">
+                </p>
+            </div>
+            <div class="row" id="arrivalAirportMobile">
+                        <h6 style="margin-bottom: 0" th:text="${#dates.format(flight.getArrivalDate(), 'HH:mm')} + ' ' +
+                           ${flight.getArrivalAirport().getCity()} + ' (' + ${flight.getArrivalAirport().getCode()} + ')'"></h6>
+            </div>
+
+            <div class="row text-center" id="priceRowMobile">
+                <span class="fw-bold" th:text="'Price: ' + ${#numbers.formatDecimal(flight.getPrice(),1,2,'POINT')} + '$'"></span>
+            </div>
+            <div class="row text-center">
+                <span th:text="'Flight number: ' + ${#strings.toUpperCase(#strings.substring(flight.getCompany().getName(),0,2))}
+                + ' ' + ${#numbers.formatInteger(flight.getId(),6)}"></span>
+            </div>
+            <div class="row text-center">
+                Carbon emissions estimate: 82 kg
+            </div>
+            <div class="row text-center">
+                <span th:text="'Averange legroom: ' + ${#numbers.formatDecimal(T(java.lang.Math).floor(T(java.lang.Math).random()*40 + 70),1,0)}
+                + 'cm'"></span>
+            </div>
+            <div class="row text-center" id="buttonRowMobile">
+                <div class="col">
+                    <a th:href="@{/addToCart/{flightId}(flightId=${flight.getId()})}">
+                        <button class="btn btn-primary btn-lg" type="submit">Take this flight!</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
         <div class="container text-center" id="buttonContainer">
             <button class="btn btn-outline-primary" onclick="history.back()">Back to flights</button>
         </div>
