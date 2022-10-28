@@ -1,12 +1,10 @@
 #background{
     background-color: #f1f1f1;
-    /*height: 750px;*/
     width: 100%;
-    padding: 30px;
+    padding: 3%;
 }
 #usersCol{
     height: 100%;
-    /*padding: 20px;*/
     border-right-style: solid;
     border-right-width: 2px;
     border-right-color: #a4a3a3;
@@ -15,5 +13,15 @@
 .container {
     margin: 0 auto !important;
     max-width:100%;
+}
+
+@media only screen and (max-width: 800px) {
+    #usersCol{
+        border-right-width: 0;
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        border-bottom-color: #a4a3a3;
+        margin-bottom: 10%;
+    }
 }
 
