@@ -1,3 +1,19 @@
 #registrationForm{
-    margin-top: -8vw;
+    margin-top: -8vh;
+    margin-bottom: 5vh;
+}
+#background{
+    min-height: 80vh;
+}
+
+
+
+@media only screen and (max-width: 800px) {
+    #background{
+        min-height: 80%;
+    }
+
+    #registrationForm{
+        margin-top: 5vh;
+    }
 }
