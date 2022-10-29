@@ -28,7 +28,8 @@
                                 ->
                                 <span th:text="${flight.getArrivalAirport().getCode()}"></span>
                             </div>
-                            <div class="col">
+                            <div class="col text-end">
+                                <span>5 </span>pcs
                             </div>
                         </div>
                         <div class="row">
@@ -37,8 +38,7 @@
                                 ->
                                 <span class="overflow-visible" th:text="${flight.getArrivalAirport().getCity()}"></span>
                             </div>
-                            <div class="col"></div>
-                            <div class="col-sm-3 text-end price">
+                            <div class="col text-end price">
                                 <span th:text="${#numbers.formatDecimal(flight.getPrice(),1,2,'POINT')}"></span>$
                             </div>
                         </div>
