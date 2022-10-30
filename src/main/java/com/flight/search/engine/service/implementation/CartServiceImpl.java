@@ -35,10 +35,20 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void addToCart(Long flightId, User user) {
-        CartItem cartItem = new CartItem();
-        cartItem.setIdFromApi(flightId);
-        cartItem.setCart(user.getCart());
+        CartItem cartItem = cartItemService.findByFlightIdAndUser(flightId, user);
+        Cart cart = user.getCart();
+
+        if(cartItem == null){
+            cartItem = new CartItem();
+            cartItem.setIdFromApi(flightId);
+            cartItem.setCart(cart);
+            cartItem.setAmount(1);
+            System.out.println("nie ma takiego lotu");
+        }else{
+            cartItem.setAmount(cartItem.getAmount() + 1);
+        }
         cartItemService.save(cartItem);
+
     }
 
     @Override
@@ -48,6 +58,7 @@ public class CartServiceImpl implements CartService {
             CartItemDTO cartItemDto = objectMapper.
                     convertValue(flightService.getFlight(String.valueOf(cartItem.getIdFromApi())), CartItemDTO.class);
             cartItemDto.setIdFromCart(cartItem.getId());
+            cartItemDto.setAmount(cartItem.getAmount());
             flights.add(cartItemDto);
         }
         return flights;
@@ -59,7 +70,7 @@ public class CartServiceImpl implements CartService {
         List<CartItemDTO> cartItems = getCart(user);
         double sum = 0;
         for(CartItemDTO cartItem: cartItems){
-            sum += cartItem.getPrice();
+            sum += cartItem.getPrice() * cartItem.getAmount();
         }
         return sum;
     }
@@ -67,8 +78,14 @@ public class CartServiceImpl implements CartService {
     @Override
     public void removeFromCart(Long id, User user) {
         CartItem cartItemToDelete = cartItemService.findById(id);
-        if(cartItemToDelete.getCart().getUser().equals(user)){
-            cartItemService.removeCartItemById(id);
+        System.out.println(cartItemToDelete.getAmount());
+        if(cartItemToDelete.getAmount() > 1){
+            cartItemToDelete.setAmount(cartItemToDelete.getAmount() - 1);
+            cartItemService.save(cartItemToDelete);
+        }else{
+            if(cartItemToDelete.getCart().getUser().equals(user)){
+                cartItemService.removeCartItemById(id);
+            }
         }
     }
 

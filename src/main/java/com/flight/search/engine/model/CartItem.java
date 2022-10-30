@@ -19,6 +19,9 @@ public class CartItem {
     @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
 
+    @Column(name = "amount")
+    private int amount;
+
     public Cart getCart() {
         return cart;
     }
@@ -43,13 +46,20 @@ public class CartItem {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "FlightMini{" +
-                "id=" + id +
-                ", idFromApi=" + idFromApi +
-                '}';
+    public int getAmount() {
+        return amount;
     }
 
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "id=" + id +
+                ", idFromApi=" + idFromApi +
+                ", amount=" + amount +
+                '}';
+    }
 }

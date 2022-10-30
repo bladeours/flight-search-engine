@@ -16,6 +16,7 @@ public class CartItemDTO {
     private double price;
     private CompanyDAO company;
     private int distance_km;
+    private int amount;
 
     public CartItemDTO() {
     }
@@ -114,5 +115,13 @@ public class CartItemDTO {
 
     public void setDistance_km(int distance_km) {
         this.distance_km = distance_km;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

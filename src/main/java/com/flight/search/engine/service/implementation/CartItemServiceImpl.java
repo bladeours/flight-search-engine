@@ -1,6 +1,7 @@
 package com.flight.search.engine.service.implementation;
 
 import com.flight.search.engine.model.CartItem;
+import com.flight.search.engine.model.User;
 import com.flight.search.engine.repository.CartItemRepository;
 import com.flight.search.engine.service.CartItemService;
 import org.springframework.stereotype.Service;
@@ -33,4 +34,11 @@ public class CartItemServiceImpl implements CartItemService {
     public void save(CartItem cartItem) {
         cartItemRepository.save(cartItem);
     }
+
+    @Override
+    public CartItem findByFlightIdAndUser(long flightId, User user) {
+        return cartItemRepository.findByFlightIdAndCart(flightId, user.getCart());
+    }
+
+
 }

@@ -13,7 +13,7 @@ public class Cart {
     private Long id;
 
     @OneToMany(mappedBy = "cart", cascade = { CascadeType.ALL})
-    private Set<CartItem> CartItems;
+    private Set<CartItem> cartItems;
 
     @OneToOne(mappedBy = "cart", cascade = { CascadeType.ALL})
     private User user;
@@ -27,11 +27,11 @@ public class Cart {
     }
 
     public Set<CartItem> getCartItems() {
-        return CartItems;
+        return cartItems;
     }
 
     public void setCartItems(Set<CartItem> cartItems) {
-        CartItems = cartItems;
+        this.cartItems = cartItems;
     }
 
     public User getUser() {

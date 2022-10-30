@@ -80,14 +80,22 @@
     color: #06c200;
 }
 
-.price{
-
-}
 
 #errorMessages {
     height: 40px;
     font-size: smaller;
 
+}
+
+#amountCol {
+    max-height: 33%;
+}
+#amountDiv{
+    margin-left: auto;
+    width: 60%;
+    padding: 1%;
+    max-width: 100px;
+    margin-right: 0 !important;
 }
 
 @media only screen and (max-width: 800px) {
@@ -103,8 +111,6 @@
     }
 
     #details{
-        /*margin-right: 0;*/
-        /*margin: 0;*/
         height: 65vh;
         max-height: none;
         margin-left: 5%;
@@ -133,4 +139,10 @@
     #flights {
         height: 70%;
     }
+
+    #citiesCol{
+        max-width: 50%;
+    }
+
 }
+

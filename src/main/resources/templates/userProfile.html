@@ -6,6 +6,7 @@
     <th:block th:replace="template :: links"/>
     <title>Profile</title>
     <th:block th:replace="template :: meta"/>
+
 </head>
 <body>
 <section th:replace="template :: header"></section>
@@ -29,18 +30,34 @@
                                 <span th:text="${flight.getArrivalAirport().getCode()}"></span>
                             </div>
                             <div class="col text-end">
-                                <span>5 </span>pcs
+                                <span th:text="${#numbers.formatDecimal(flight.getPrice(),1,2,'POINT')}"></span>$
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 text-start ">
+                            <div class="col-lg-6 text-start" id="citiesCol">
                                <span th:text="${flight.getDepartureAirport().getCity()}"></span>
                                 ->
                                 <span class="overflow-visible" th:text="${flight.getArrivalAirport().getCity()}"></span>
                             </div>
-                            <div class="col text-end price">
-                                <span th:text="${#numbers.formatDecimal(flight.getPrice(),1,2,'POINT')}"></span>$
+                            <div class="col text-end" id="amountCol">
+
+                                <div class="input-group" id="amountDiv">
+                                    <a th:href="@{/removeFromCart/{flightId}(flightId=${flight.getIdFromCart()})}">
+                                        <button type="button" class="btn btn-danger btn-number btn-sm">
+                                                <i class="bi bi-dash-lg"></i>
+                                        </button>
+                                    </a>
+                                    <input  type="text" name="quant[2]" class="form-control form-control-sm input-number" th:value="${flight.getAmount()}" disabled>
+                                    <a th:href="@{/addToCart/{flightId}(flightId=${flight.getId()})}">
+                                        <button type="button" class="btn btn-success btn-number btn-sm">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </button>
+                                    </a>
+                                </div>
+
+
                             </div>
+
                         </div>
                         <div class="row">
                             <div class="col text-start">
@@ -96,10 +113,8 @@
 
                                 </div>
 
-                                <!--                            </div>-->
-                                <!--                            <div class="row">-->
                                 <div class="col">
-                                    <label for="confirmPassword">Confirm Password:</label>
+                                    <label for="confirmPassword">Confirm:</label>
                                     <input id="confirmPassword" class="form-control"
                                            th:field="*{confirmPassword}" type="password">
                                 </div>
@@ -154,5 +169,6 @@
     </div>
 </section>
 <footer th:replace="template :: footer"></footer>
+<!--<script th:src="@{/js/plusMinusButtons.js}"></script>-->
 </body>
 </html>
