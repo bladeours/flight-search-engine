@@ -13,5 +13,4 @@ public class FlightSearchEngineApplication {
     //TODO add clickable rows on admin page priority
     //TODO add tests priority
     //TODO pretty page!
-    //TODO responsive page!
 }
