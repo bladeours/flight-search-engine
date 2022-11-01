@@ -4,17 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flight.search.engine.dao.AirportDAO;
-import com.flight.search.engine.dao.FlightDAO;
+import com.flight.search.engine.dto.FlightDTO;
 import com.flight.search.engine.service.FlightService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,18 +21,18 @@ public class FlightServiceImpl implements FlightService {
 
 
     @Override
-    public List<FlightDAO> getFlightsForCodes(String departureCode, String arrivalCode,String date) {
+    public List<FlightDTO> getFlightsForCodes(String departureCode, String arrivalCode, String date) {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
                 .uri("http://localhost:8082/flight/" + departureCode + "/" + arrivalCode + "?date=" + date)
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
-        List<FlightDAO> flights;
+        List<FlightDTO> flights;
 
         try {
             flights = objectMapper.readValue(responseBody, new TypeReference<>() {});
-            for(FlightDAO flight : flights){
+            for(FlightDTO flight : flights){
                 flight.setArrivalDate(new Timestamp(0));
                 flight.getArrivalDate().setTime(flight.getDepartureDate().getTime() + flight.getFlightTime().getTime());
             }
@@ -56,14 +53,14 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public FlightDAO getFlight(String id) {
+    public FlightDTO getFlight(String id) {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
                 .uri("http://localhost:8082/flight/" + id)
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
-        FlightDAO flight;
+        FlightDTO flight;
         try {
             flight = objectMapper.readValue(responseBody, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
@@ -75,18 +72,18 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public List<FlightDAO> getAllFlights() {
+    public List<FlightDTO> getAllFlights() {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
                 .uri("http://localhost:8082/flight/flights")
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
-        List<FlightDAO> flights;
+        List<FlightDTO> flights;
 
         try {
             flights = objectMapper.readValue(responseBody, new TypeReference<>() {});
-            for(FlightDAO flight : flights){
+            for(FlightDTO flight : flights){
                 flight.setArrivalDate(new Timestamp(0));
                 flight.getArrivalDate().setTime(flight.getDepartureDate().getTime() + flight.getFlightTime().getTime());
             }

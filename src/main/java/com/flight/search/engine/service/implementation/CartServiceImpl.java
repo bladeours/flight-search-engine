@@ -2,16 +2,14 @@ package com.flight.search.engine.service.implementation;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flight.search.engine.dao.CartItemDTO;
+import com.flight.search.engine.dto.CartItemDTO;
 import com.flight.search.engine.model.Cart;
 import com.flight.search.engine.model.CartItem;
 import com.flight.search.engine.model.User;
-import com.flight.search.engine.repository.CartItemRepository;
 import com.flight.search.engine.repository.CartRepository;
 import com.flight.search.engine.service.CartItemService;
 import com.flight.search.engine.service.CartService;
 import com.flight.search.engine.service.FlightService;
-import com.flight.search.engine.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

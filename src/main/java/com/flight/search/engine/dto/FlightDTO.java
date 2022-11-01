@@ -1,26 +1,26 @@
-package com.flight.search.engine.dao;
+package com.flight.search.engine.dto;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 
-public class FlightDAO {
+public class FlightDTO {
     private Long id;
-    private AirportDAO departureAirport;
-    private AirportDAO arrivalAirport;
+    private AirportDTO departureAirport;
+    private AirportDTO arrivalAirport;
     private Timestamp departureDate;
     private Timestamp arrivalDate;
     private Time flightTime;
     private int allSeats;
     private int freeSeats;
     private double price;
-    private CompanyDAO company;
+    private CompanyDTO company;
     private int distance_km;
 
-    public FlightDAO() {
+    public FlightDTO() {
     }
 
-    public FlightDAO(Long id, AirportDAO departureAirport, AirportDAO arrivalAirport, Timestamp departureDate, Time flightTime, int allSeats,
-                     int freeSeats, double price, CompanyDAO company, int distance_km) {
+    public FlightDTO(Long id, AirportDTO departureAirport, AirportDTO arrivalAirport, Timestamp departureDate, Time flightTime, int allSeats,
+                     int freeSeats, double price, CompanyDTO company, int distance_km) {
         this.id = id;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
@@ -83,11 +83,11 @@ public class FlightDAO {
         this.price = price;
     }
 
-    public CompanyDAO getCompany() {
+    public CompanyDTO getCompany() {
         return company;
     }
 
-    public void setCompany(CompanyDAO company) {
+    public void setCompany(CompanyDTO company) {
         this.company = company;
     }
 
@@ -99,19 +99,19 @@ public class FlightDAO {
         this.distance_km = distance_km;
     }
 
-    public AirportDAO getDepartureAirport() {
+    public AirportDTO getDepartureAirport() {
         return departureAirport;
     }
 
-    public void setDepartureAirport(AirportDAO departureAirport) {
+    public void setDepartureAirport(AirportDTO departureAirport) {
         this.departureAirport = departureAirport;
     }
 
-    public AirportDAO getArrivalAirport() {
+    public AirportDTO getArrivalAirport() {
         return arrivalAirport;
     }
 
-    public void setArrivalAirport(AirportDAO arrivalAirport) {
+    public void setArrivalAirport(AirportDTO arrivalAirport) {
         this.arrivalAirport = arrivalAirport;
     }
 
@@ -125,7 +125,7 @@ public class FlightDAO {
 
     @Override
     public String toString() {
-        return "FlightDAO{" +
+        return "FlightDTO{" +
                 "id=" + id +
                 ", departureAirport=" + departureAirport +
                 ", arrivalAirport=" + arrivalAirport +

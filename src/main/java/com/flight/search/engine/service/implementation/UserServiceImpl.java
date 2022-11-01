@@ -1,10 +1,9 @@
 package com.flight.search.engine.service.implementation;
 
-import com.flight.search.engine.dao.UserDAO;
+import com.flight.search.engine.dto.UserDTO;
 import com.flight.search.engine.exception.UserAlreadyExistsException;
 import com.flight.search.engine.model.Authority;
 import com.flight.search.engine.model.Cart;
-import com.flight.search.engine.model.CartItem;
 import com.flight.search.engine.model.User;
 import com.flight.search.engine.repository.UserRepository;
 import com.flight.search.engine.service.AuthorityService;
@@ -32,17 +31,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerUser(UserDAO userDAO) {
+    public void registerUser(UserDTO userDTO) {
         User user = new User();
         user.setEnabled(true);
-        user.setUsername(userDAO.getUsername());
-        user.setPassword(encryptPassword(userDAO.getPassword()));
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(encryptPassword(userDTO.getPassword()));
         HashSet<Authority> authorities = authorityService.getAuthoritiesByName( "USER");
         user.setAuthorities(authorities);
         user.setCart(new Cart());
-        if(userExists(userDAO.getUsername())){
+        if(userExists(userDTO.getUsername())){
             throw new UserAlreadyExistsException("There is an account with that username: "
-                    + userDAO.getUsername());
+                    + userDTO.getUsername());
         }
         userRepository.save(user);
     }

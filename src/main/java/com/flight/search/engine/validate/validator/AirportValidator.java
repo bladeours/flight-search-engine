@@ -1,6 +1,6 @@
 package com.flight.search.engine.validate.validator;
 
-import com.flight.search.engine.dao.AirportDAO;
+import com.flight.search.engine.dto.AirportDTO;
 import com.flight.search.engine.service.AirportService;
 import com.flight.search.engine.validate.annotation.AirportValidation;
 
@@ -22,9 +22,9 @@ public class AirportValidator implements ConstraintValidator<AirportValidation, 
         if(airportCode.equals("")){
             return true;
         }
-        List<AirportDAO> airports = airportService.findAll();
+        List<AirportDTO> airports = airportService.findAll();
         ArrayList<String> airportsCodes = new ArrayList<>();
-        for(AirportDAO airportTMP  : airports){
+        for(AirportDTO airportTMP  : airports){
             airportsCodes.add(airportTMP.getCode());
         }
         return airportsCodes.contains(airportCode);

@@ -1,10 +1,8 @@
 package com.flight.search.engine.service;
 
-import com.flight.search.engine.dao.CartItemDTO;
+import com.flight.search.engine.dto.CartItemDTO;
 import com.flight.search.engine.model.Cart;
-import com.flight.search.engine.model.CartItem;
 import com.flight.search.engine.model.User;
-import com.flight.search.engine.repository.CartItemRepository;
 
 import java.util.List;
 

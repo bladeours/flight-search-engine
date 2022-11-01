@@ -1,8 +1,7 @@
 package com.flight.search.engine.controller;
 
-import com.flight.search.engine.dao.PasswordDTO;
-import com.flight.search.engine.dao.UserDAO;
-import com.flight.search.engine.exception.PasswordValidationException;
+import com.flight.search.engine.dto.PasswordDTO;
+import com.flight.search.engine.dto.UserDTO;
 import com.flight.search.engine.exception.UserAlreadyExistsException;
 import com.flight.search.engine.model.User;
 import com.flight.search.engine.repository.UserRepository;
@@ -12,7 +11,6 @@ import com.flight.search.engine.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,18 +46,18 @@ public class UserController {
 
     @GetMapping("/registration")
     public String showRegistrationForm(Model model){
-        UserDAO userDAO = new UserDAO();
-        model.addAttribute("user", userDAO);
+        UserDTO userDTO = new UserDTO();
+        model.addAttribute("user", userDTO);
         return "registration";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") @Valid UserDAO userDAO, BindingResult bindingResult, Model model){
+    public String registerUser(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             return "registration";
         }
         try{
-            userService.registerUser(userDAO);
+            userService.registerUser(userDTO);
 
         }catch (UserAlreadyExistsException e){
             model.addAttribute("errorMessage", e.getMessage());

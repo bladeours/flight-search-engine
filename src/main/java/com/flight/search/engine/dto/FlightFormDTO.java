@@ -1,16 +1,11 @@
-package com.flight.search.engine.dao;
+package com.flight.search.engine.dto;
 
 import com.flight.search.engine.validate.annotation.AirportValidation;
 import com.flight.search.engine.validate.annotation.DateValidation;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 
-public class FlightFormDAO {
+public class FlightFormDTO {
 
     @AirportValidation
     @NotEmpty(message = "Airport can not be empty")
@@ -23,14 +18,14 @@ public class FlightFormDAO {
     private String departureDate;
     private String returnDate;
 
-    public FlightFormDAO(String departureAirportCode, String arrivalAirportCode, String departureDate, String returnDate) {
+    public FlightFormDTO(String departureAirportCode, String arrivalAirportCode, String departureDate, String returnDate) {
         this.departureAirportCode = departureAirportCode;
         this.arrivalAirportCode = arrivalAirportCode;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
     }
 
-    public FlightFormDAO() {
+    public FlightFormDTO() {
     }
 
     public String getDepartureAirportCode() {
@@ -67,7 +62,7 @@ public class FlightFormDAO {
 
     @Override
     public String toString() {
-        return "FlightFormDAO{" +
+        return "FlightFormDTO{" +
                 "departureAirportCode='" + departureAirportCode + '\'' +
                 ", arrivalAirportCode='" + arrivalAirportCode + '\'' +
                 ", departureDate=" + departureDate +

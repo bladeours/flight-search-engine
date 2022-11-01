@@ -34,6 +34,24 @@ public class User {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    public User() {
+    }
+
+    public User(String password, String username, boolean enabled, Set<Authority> authorities) {
+        this.password = password;
+        this.username = username;
+        this.enabled = enabled;
+        this.authorities = authorities;
+    }
+
+    public User(String password, String username, boolean enabled, Set<Authority> authorities, Cart cart) {
+        this.password = password;
+        this.username = username;
+        this.enabled = enabled;
+        this.authorities = authorities;
+        this.cart = cart;
+    }
+
     public Cart getCart() {
         return cart;
     }

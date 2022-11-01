@@ -22,6 +22,15 @@ public class CartItem {
     @Column(name = "amount")
     private int amount;
 
+    public CartItem(Long idFromApi, Cart cart, int amount) {
+        this.idFromApi = idFromApi;
+        this.cart = cart;
+        this.amount = amount;
+    }
+
+    public CartItem() {
+    }
+
     public Cart getCart() {
         return cart;
     }

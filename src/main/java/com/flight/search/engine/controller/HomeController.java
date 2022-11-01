@@ -1,7 +1,7 @@
 package com.flight.search.engine.controller;
 
-import com.flight.search.engine.dao.FlightDAO;
-import com.flight.search.engine.dao.FlightFormDAO;
+import com.flight.search.engine.dto.FlightDTO;
+import com.flight.search.engine.dto.FlightFormDTO;
 import com.flight.search.engine.service.AirportService;
 import com.flight.search.engine.service.FlightService;
 import org.springframework.stereotype.Controller;
@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,15 +31,15 @@ public class HomeController {
     @GetMapping("/")
     public String showHomePage(Model model){
         model.addAttribute("airports", airportService.findAll());
-        FlightFormDAO flightFormDAO = new FlightFormDAO();
-        flightFormDAO.setDepartureDate(LocalDate.now().toString());
-        model.addAttribute("flightForm", flightFormDAO);
+        FlightFormDTO flightFormDTO = new FlightFormDTO();
+        flightFormDTO.setDepartureDate(LocalDate.now().toString());
+        model.addAttribute("flightForm", flightFormDTO);
 
         return "index";
     }
 
     @PostMapping("/search")
-    public String showResults(@Valid @ModelAttribute("flightForm") FlightFormDAO flightForm, BindingResult bindingResult,
+    public String showResults(@Valid @ModelAttribute("flightForm") FlightFormDTO flightForm, BindingResult bindingResult,
                               Model model){
         model.addAttribute("airports", airportService.findAll());
         model.addAttribute("flightForm", flightForm);
@@ -52,7 +50,7 @@ public class HomeController {
         if(!Objects.equals(flightForm.getDepartureAirportCode(), "") || !Objects.equals(flightForm.getArrivalAirportCode(), "")){
             model.addAttribute("departureAirport",airportService.getAirport(flightForm.getDepartureAirportCode()));
             model.addAttribute("arrivalAirport",airportService.getAirport(flightForm.getArrivalAirportCode()));
-            List<FlightDAO> flights = flightService.getFlightsForCodes(flightForm.getDepartureAirportCode(),
+            List<FlightDTO> flights = flightService.getFlightsForCodes(flightForm.getDepartureAirportCode(),
                     flightForm.getArrivalAirportCode(), flightForm.getDepartureDate());
             model.addAttribute("flights",flights);
             model.addAttribute("dateToShow", flightService.getDateToShow(flightForm.getDepartureDate()));

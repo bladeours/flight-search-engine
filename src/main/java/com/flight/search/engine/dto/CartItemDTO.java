@@ -1,4 +1,4 @@
-package com.flight.search.engine.dao;
+package com.flight.search.engine.dto;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -6,15 +6,15 @@ import java.sql.Timestamp;
 public class CartItemDTO {
     private Long idFromCart;
     private Long id;
-    private AirportDAO departureAirport;
-    private AirportDAO arrivalAirport;
+    private AirportDTO departureAirport;
+    private AirportDTO arrivalAirport;
     private Timestamp departureDate;
     private Timestamp arrivalDate;
     private Time flightTime;
     private int allSeats;
     private int freeSeats;
     private double price;
-    private CompanyDAO company;
+    private CompanyDTO company;
     private int distance_km;
     private int amount;
 
@@ -37,19 +37,19 @@ public class CartItemDTO {
         this.id = id;
     }
 
-    public AirportDAO getDepartureAirport() {
+    public AirportDTO getDepartureAirport() {
         return departureAirport;
     }
 
-    public void setDepartureAirport(AirportDAO departureAirport) {
+    public void setDepartureAirport(AirportDTO departureAirport) {
         this.departureAirport = departureAirport;
     }
 
-    public AirportDAO getArrivalAirport() {
+    public AirportDTO getArrivalAirport() {
         return arrivalAirport;
     }
 
-    public void setArrivalAirport(AirportDAO arrivalAirport) {
+    public void setArrivalAirport(AirportDTO arrivalAirport) {
         this.arrivalAirport = arrivalAirport;
     }
 
@@ -101,11 +101,11 @@ public class CartItemDTO {
         this.price = price;
     }
 
-    public CompanyDAO getCompany() {
+    public CompanyDTO getCompany() {
         return company;
     }
 
-    public void setCompany(CompanyDAO company) {
+    public void setCompany(CompanyDTO company) {
         this.company = company;
     }
 

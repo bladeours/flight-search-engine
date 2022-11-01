@@ -18,6 +18,14 @@ public class Cart {
     @OneToOne(mappedBy = "cart", cascade = { CascadeType.ALL})
     private User user;
 
+    public Cart() {
+    }
+
+    public Cart(Set<CartItem> cartItems, User user) {
+        this.cartItems = cartItems;
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,4 +1,4 @@
-package com.flight.search.engine.dao;
+package com.flight.search.engine.dto;
 
 import com.flight.search.engine.validate.annotation.PasswordMatches;
 import com.flight.search.engine.validate.annotation.ValidPassword;

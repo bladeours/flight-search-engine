@@ -22,6 +22,14 @@ public class Authority {
     private Set<User> users = new HashSet<>();
 
 
+    public Authority() {
+    }
+
+    public Authority( String name, Set<User> users) {
+        this.name = name;
+        this.users = users;
+    }
+
     public Integer getId() {
         return Id;
     }

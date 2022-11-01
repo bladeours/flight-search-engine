@@ -1,13 +1,13 @@
-package com.flight.search.engine.dao;
+package com.flight.search.engine.dto;
 
-public class CompanyDAO {
+public class CompanyDTO {
     private Long id;
     private String name;
 
-    public CompanyDAO() {
+    public CompanyDTO() {
     }
 
-    public CompanyDAO(Long id, String name) {
+    public CompanyDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }

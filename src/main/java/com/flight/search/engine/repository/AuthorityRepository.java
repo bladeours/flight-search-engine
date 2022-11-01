@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AuthorityRepository extends CrudRepository<Authority,Integer > {
+
     @Query("SELECT a FROM Authority a WHERE a.name = :name")
     Authority getByName(@Param("name")String name);
 }
+
