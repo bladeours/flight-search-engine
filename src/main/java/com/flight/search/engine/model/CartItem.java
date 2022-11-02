@@ -1,6 +1,7 @@
 package com.flight.search.engine.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -70,5 +71,19 @@ public class CartItem {
                 ", idFromApi=" + idFromApi +
                 ", amount=" + amount +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CartItem cartItem = (CartItem) o;
+        return amount == cartItem.amount && Objects.equals(id, cartItem.id) &&
+                Objects.equals(idFromApi, cartItem.idFromApi) && Objects.equals(cart, cartItem.cart);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, idFromApi, cart, amount);
     }
 }

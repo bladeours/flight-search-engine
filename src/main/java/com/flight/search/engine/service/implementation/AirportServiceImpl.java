@@ -47,7 +47,7 @@ public class AirportServiceImpl implements AirportService {
     public AirportDTO getAirport(String code) {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
-                .uri("http://localhost:8082/airport/" + code)
+                .uri(baseUrl + "/airport/" + code)
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();

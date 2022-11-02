@@ -4,16 +4,14 @@ import com.flight.search.engine.dto.AirportDTO;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
+
 
 class AirportServiceImplTest {
 
@@ -59,11 +57,20 @@ class AirportServiceImplTest {
         mockBackEnd.enqueue(new MockResponse()
                 .setBody(mockData));
 
-        assertThat(airportService.findAll()).
+        assertThat(airportService.findAll()).isEqualTo(airports);
 
     }
 
     @Test
     void getAirport() {
+        AirportDTO airport = new AirportDTO(
+                "AAC",
+                "Al Arish",
+                "Egypt"
+        );
+        String mockData = "{\"code\":\"AAC\",\"city\":\"Al Arish\",\"country\":\"Egypt\"}";
+        mockBackEnd.enqueue(new MockResponse()
+                .setBody(mockData));
+        assertThat(airportService.getAirport("AAC")).isEqualTo(airport);
     }
 }

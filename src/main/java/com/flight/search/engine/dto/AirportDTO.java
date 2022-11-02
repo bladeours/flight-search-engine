@@ -1,5 +1,7 @@
 package com.flight.search.engine.dto;
 
+import java.util.Objects;
+
 public class AirportDTO {
     private String code;
     private String city;
@@ -46,5 +48,18 @@ public class AirportDTO {
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        AirportDTO airport = (AirportDTO) obj;
+        return code.equals(airport.code) && city.equals(airport.city) && country.equals(airport.country);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, city, country);
     }
 }

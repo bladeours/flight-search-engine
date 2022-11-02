@@ -41,7 +41,6 @@ public class CartServiceImpl implements CartService {
             cartItem.setIdFromApi(flightId);
             cartItem.setCart(cart);
             cartItem.setAmount(1);
-            System.out.println("nie ma takiego lotu");
         }else{
             cartItem.setAmount(cartItem.getAmount() + 1);
         }
@@ -76,7 +75,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void removeFromCart(Long id, User user) {
         CartItem cartItemToDelete = cartItemService.findById(id);
-        System.out.println(cartItemToDelete.getAmount());
+
         if(cartItemToDelete.getAmount() > 1){
             cartItemToDelete.setAmount(cartItemToDelete.getAmount() - 1);
             cartItemService.save(cartItemToDelete);
