@@ -10,12 +10,10 @@ public class ErrorServiceImpl implements ErrorService {
     @Override
     public String getErrorMessage(int statusCode) {
 
-        switch (statusCode){
-            case 404:
-                return "404 Can't find this page.";
-            case 500:
-                return "500 Sorry, my bad :/";
-        }
-        return statusCode + "Unknown error";
+        return switch (statusCode) {
+            case 404 -> "404 Can't find this page.";
+            case 500 -> "500 Sorry, my bad :/";
+            default -> statusCode + "Unknown error";
+        };
     }
 }

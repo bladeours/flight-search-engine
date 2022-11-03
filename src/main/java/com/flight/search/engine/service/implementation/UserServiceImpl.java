@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
-    private boolean userExists(String username){
+    public boolean userExists(String username){
         return userRepository.getUserByUsername(username) != null;
     }
 }

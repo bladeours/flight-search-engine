@@ -2,6 +2,7 @@ package com.flight.search.engine.dto;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class FlightDTO {
     private Long id;
@@ -138,5 +139,18 @@ public class FlightDTO {
                 ", company=" + company +
                 ", distance_km=" + distance_km +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FlightDTO flightDTO = (FlightDTO) o;
+        return allSeats == flightDTO.allSeats && freeSeats == flightDTO.freeSeats && Double.compare(flightDTO.price, price) == 0 && distance_km == flightDTO.distance_km && Objects.equals(id, flightDTO.id) && Objects.equals(departureAirport, flightDTO.departureAirport) && Objects.equals(arrivalAirport, flightDTO.arrivalAirport) && Objects.equals(departureDate, flightDTO.departureDate) && Objects.equals(arrivalDate, flightDTO.arrivalDate) && Objects.equals(flightTime, flightDTO.flightTime) && Objects.equals(company, flightDTO.company);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, departureAirport, arrivalAirport, departureDate, arrivalDate, flightTime, allSeats, freeSeats, price, company, distance_km);
     }
 }

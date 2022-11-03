@@ -37,7 +37,7 @@ class AirportServiceImplTest {
     }
 
     @Test
-    void findAll() {
+    void shouldReturnAllAirports() {
         AirportDTO firstAirport = new AirportDTO(
                 "AAC",
                 "Al Arish",
@@ -62,7 +62,7 @@ class AirportServiceImplTest {
     }
 
     @Test
-    void getAirport() {
+    void shouldReturnAirportForCode() {
         AirportDTO airport = new AirportDTO(
                 "AAC",
                 "Al Arish",

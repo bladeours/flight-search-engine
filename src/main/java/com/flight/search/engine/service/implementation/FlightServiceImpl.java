@@ -17,14 +17,22 @@ import java.util.List;
 @Service
 public class FlightServiceImpl implements FlightService {
 
-    ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+    ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    String baseUrl = "http://localhost:8082";
+
+    public FlightServiceImpl() {
+    }
+
+    public FlightServiceImpl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
 
     @Override
     public List<FlightDTO> getFlightsForCodes(String departureCode, String arrivalCode, String date) {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
-                .uri("http://localhost:8082/flight/" + departureCode + "/" + arrivalCode + "?date=" + date)
+                .uri(baseUrl + "/flight/" + departureCode + "/" + arrivalCode + "?date=" + date)
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
@@ -56,7 +64,7 @@ public class FlightServiceImpl implements FlightService {
     public FlightDTO getFlight(String id) {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
-                .uri("http://localhost:8082/flight/" + id)
+                .uri(baseUrl + "/flight/" + id)
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
@@ -75,7 +83,7 @@ public class FlightServiceImpl implements FlightService {
     public List<FlightDTO> getAllFlights() {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
-                .uri("http://localhost:8082/flight/flights")
+                .uri(baseUrl + "/flight/flights")
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
