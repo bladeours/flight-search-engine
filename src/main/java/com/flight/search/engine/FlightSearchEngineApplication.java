@@ -10,7 +10,6 @@ public class FlightSearchEngineApplication {
         SpringApplication.run(FlightSearchEngineApplication.class, args);
     }
     //TODO add luggage
-    //TODO add clickable rows on admin page priority
-    //TODO add tests priority
+    //TODO add clickable rows on admin page
     //TODO pretty page!
 }

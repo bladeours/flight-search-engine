@@ -82,8 +82,4 @@ public class CartItem {
                 Objects.equals(idFromApi, cartItem.idFromApi) && Objects.equals(cart, cartItem.cart);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, idFromApi, cart, amount);
-    }
 }

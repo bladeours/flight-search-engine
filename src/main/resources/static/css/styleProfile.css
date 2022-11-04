@@ -1,13 +1,13 @@
 #background {
     background-color: #f1f1f1;
-    height: 50vh;
+    height: 60vh;
     min-height: 350px;
     width: 100%;
     margin: 0;
 }
 
 #root{
-    height: 40vh;
+    height: 50vh;
     width: 70%;
     position: absolute;
     margin-left: auto;
@@ -17,48 +17,31 @@
     margin-top: -9vh;
 }
 
-#details {
-    border-radius: 10px;
-    height: 55vh;
-    margin-left: 5%;
-    background-color: #e3e3e3;
-    max-height: 400px;
-}
-
 #cart{
-    border-radius: 10px;
-    max-height: 400px;
-    height: 55vh;
+    height: 60vh;
     margin-right: 5%;
-    background-color: #cccbcb;
-    padding-right: 0;
-    padding-left: 0;
-}
-#headerCart {
-    border-radius: 10px 10px 0px 0px;
-    background-color: #e3e3e3;
-    margin-bottom: 0;
-}
-#flights{
-    height: 60%;
-    background-color: #e3e3e3;
-
+    padding: 0;
 }
 
-#summary{
-    alignment: bottom;
-    height: 4.5rem;
+.scrollbar-primary::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
 
+.scrollbar-primary::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #4285F4;
 }
-.flight{
-    width: 90%;
-    margin: auto;
 
+#details {
+    height: 60vh;
+    margin-left: 5%;
+    padding: 0;
 }
 
 #allDetails{
-    width: 70%;
-    margin: auto;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 
 #confirmPassword, #newPassword, #currentPassword{
@@ -71,15 +54,16 @@
     max-width: 200px;
     width: 15vw;
 }
+
 .error-custom {
     word-wrap: anywhere;
     color: #e00000;
 }
+
 .success-custom{
     word-wrap: anywhere;
     color: #06c200;
 }
-
 
 #errorMessages {
     height: 40px;
@@ -90,6 +74,7 @@
 #amountCol {
     max-height: 33%;
 }
+
 #amountDiv{
     margin-left: auto;
     width: 60%;
@@ -97,6 +82,8 @@
     max-width: 100px;
     margin-right: 0 !important;
 }
+
+
 
 @media only screen and (max-width: 800px) {
 
@@ -112,16 +99,16 @@
 
     #details{
         height: 65vh;
-        max-height: none;
+        min-height: 500px;
         margin-left: 5%;
         margin-right: 5%;
+        min-width: 50%;
     }
     #root{
         margin-top: 2vh;
         width: 100%;
         margin-left: 0;
         margin-right: 0;
-
     }
 
     #background{
@@ -136,13 +123,17 @@
         margin-right: 5%;
     }
 
-    #flights {
-        height: 70%;
-    }
 
     #citiesCol{
-        max-width: 50%;
+        max-width: 40%;
     }
 
+    .scrollbar-primary::-webkit-scrollbar {
+        width: 3px;
+        background-color: #F5F5F5; }
+
+    .flight{
+        padding-right: 0 !important;
+    }
 }
 

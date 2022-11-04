@@ -12,7 +12,7 @@
 
     <section th:replace="template :: header"></section>
 
-    <div id="search" class="container">
+    <div id="search" class="card shadow-lg">
         <form method="post" th:action="@{/search}" th:object="${flightForm}" >
             <div class="row">
                 <div id="departureDataListDiv" class="col">
@@ -49,7 +49,7 @@
             </div>
             <div class="row">
                 <div class="col text-center" id="colDepartureDate">
-                    <label for="departureDate">Depart</label>
+                    <label for="departureDate" class="form-label">Depart</label>
                     <input id="departureDate" th:field="*{departureDate}" class="form-control" type="date" />
                 </div>
             </div>
@@ -71,10 +71,21 @@
             <p class="text-center" th:text="${dateToShow}"/>
         </div>
         <div class="container" th:unless="${departureAirport != null}">
-            <h1 class="text-center">
-                <span sec:authorize="isAuthenticated()">
-                    Hello <span sec:authentication="name"></span> :)</span>
-                Find your dream flight!
+            <div class="row text-center">
+                <h2>
+                    <span sec:authorize="isAuthenticated()">
+                    Hello <span sec:authentication="name"></span> :)
+                </span>
+                </h2>
+            </div>
+            <div class="row text-center" >
+                <h1>
+                    Find your dream flight!
+                </h1>
+            </div>
+            <div class="row text-center" id="flightImageRow">
+                    <img src="/images/flightSearch.png" alt="flight search image"/>
+            </div>
             </h1>
         </div>
         <a  th:href="'/flight/' + ${flight.getId()}"  th:each="flight: ${flights}">
