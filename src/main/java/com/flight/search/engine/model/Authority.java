@@ -8,7 +8,7 @@ import java.util.Set;
 @Table(name = "authorities")
 public class Authority {
     @Id
-    @Column(name = "authority_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
