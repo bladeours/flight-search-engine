@@ -48,10 +48,21 @@ on your phone.
 * now you can see flight in your cart
 
 ![img.png](img/cart.png)
-### 
+
+### change password
+* click profile on navigation bar
+
+![img.png](img/navbar_profile.png)
+
+* then easily change password
+
+![img.png](img/change_password.png)
+
 ## Room for Improvement
-**To do:**
-// TODO
+- [ ] add sending mail
+- [ ] add return flight
+- [ ] add luggage
+
 
 
 
