@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.flight.search.engine</groupId>
     <artifactId>flightSearchEngine</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>flightSearchEngine</name>
     <description>flightSearchEngine</description>
     <properties>
