@@ -83,7 +83,7 @@ public class FlightServiceImpl implements FlightService {
     public List<FlightDTO> getAllFlights() {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
-                .uri(baseUrl + "/flight/flights")
+                .uri(baseUrl + "/flight/all")
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();

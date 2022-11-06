@@ -29,7 +29,7 @@ public class AirportServiceImpl implements AirportService {
     public List<AirportDTO> findAll() {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
-                .uri(baseUrl + "/airport/airports")
+                .uri(baseUrl + "/airport/all")
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
