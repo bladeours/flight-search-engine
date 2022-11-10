@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flight.search.engine.dto.FlightDTO;
+import com.flight.search.engine.property.ApiProperty;
 import com.flight.search.engine.service.FlightService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,22 +18,19 @@ import java.util.List;
 @Service
 public class FlightServiceImpl implements FlightService {
 
-
+    private final ApiProperty apiProperty;
     ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    String baseUrl = "http://localhost:8082";
 
-    public FlightServiceImpl() {
+    public FlightServiceImpl(ApiProperty apiProperty) {
+        this.apiProperty = apiProperty;
     }
 
-    public FlightServiceImpl(String baseUrl) {
-        this.baseUrl = baseUrl;
-    }
 
     @Override
     public List<FlightDTO> getFlightsForCodes(String departureCode, String arrivalCode, String date) {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
-                .uri(baseUrl + "/flight/" + departureCode + "/" + arrivalCode + "?date=" + date)
+                .uri(apiProperty.getUrl() + "/flight/" + departureCode + "/" + arrivalCode + "?date=" + date)
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
@@ -64,7 +62,7 @@ public class FlightServiceImpl implements FlightService {
     public FlightDTO getFlight(String id) {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
-                .uri(baseUrl + "/flight/" + id)
+                .uri(apiProperty.getUrl() + "/flight/" + id)
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();
@@ -83,7 +81,7 @@ public class FlightServiceImpl implements FlightService {
     public List<FlightDTO> getAllFlights() {
         WebClient client = WebClient.create("");
         WebClient.ResponseSpec responseSpec = client.get()
-                .uri(baseUrl + "/flight/all")
+                .uri(apiProperty.getUrl() + "/flight/all")
                 .retrieve();
 
         String responseBody = responseSpec.bodyToMono(String.class).block();

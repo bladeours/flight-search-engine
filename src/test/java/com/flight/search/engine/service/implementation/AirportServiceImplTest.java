@@ -28,7 +28,6 @@ class AirportServiceImplTest {
 
     @BeforeEach
     void initialize() {
-
         String baseUrl = String.format("http://localhost:%s",
                 mockBackEnd.getPort());
         apiProperty = new ApiProperty(baseUrl);
