@@ -3,6 +3,7 @@ package com.flight.search.engine.service.implementation;
 import com.flight.search.engine.dto.AirportDTO;
 import com.flight.search.engine.dto.CompanyDTO;
 import com.flight.search.engine.dto.FlightDTO;
+import com.flight.search.engine.property.ApiProperty;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterAll;
@@ -24,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FlightServiceImplTest {
     private static MockWebServer mockBackEnd;
     private FlightServiceImpl flightService;
+    private ApiProperty apiProperty;
 
     @BeforeAll
     static void setUp() throws IOException {
@@ -32,9 +34,11 @@ class FlightServiceImplTest {
     }
     @BeforeEach
     void initialize() {
+
         String baseUrl = String.format("http://localhost:%s",
                 mockBackEnd.getPort());
-        flightService = new FlightServiceImpl(baseUrl);
+        apiProperty = new ApiProperty(baseUrl);
+        flightService = new FlightServiceImpl(apiProperty);
     }
 
     @AfterAll

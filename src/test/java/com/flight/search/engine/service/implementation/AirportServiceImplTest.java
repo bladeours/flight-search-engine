@@ -1,6 +1,7 @@
 package com.flight.search.engine.service.implementation;
 
 import com.flight.search.engine.dto.AirportDTO;
+import com.flight.search.engine.property.ApiProperty;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.*;
@@ -17,6 +18,7 @@ class AirportServiceImplTest {
 
     private static MockWebServer mockBackEnd;
     private AirportServiceImpl airportService;
+    private ApiProperty apiProperty;
 
     @BeforeAll
     static void setUp() throws IOException {
@@ -26,9 +28,11 @@ class AirportServiceImplTest {
 
     @BeforeEach
     void initialize() {
+
         String baseUrl = String.format("http://localhost:%s",
                 mockBackEnd.getPort());
-        airportService = new AirportServiceImpl(baseUrl);
+        apiProperty = new ApiProperty(baseUrl);
+        airportService = new AirportServiceImpl(apiProperty);
     }
 
     @AfterAll
