@@ -8,6 +8,7 @@ import com.flight.search.engine.dto.FlightDTO;
 import com.flight.search.engine.property.ApiProperty;
 import com.flight.search.engine.service.FlightService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.sql.Timestamp;
@@ -79,7 +80,14 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<FlightDTO> getAllFlights() {
-        WebClient client = WebClient.create("");
+        WebClient client = WebClient.builder()
+                .exchangeStrategies(
+                        ExchangeStrategies.builder().codecs(
+                                clientCodecConfigurer ->
+                                clientCodecConfigurer.defaultCodecs().maxInMemorySize(100000000))
+                        .build()).build();
+
+
         WebClient.ResponseSpec responseSpec = client.get()
                 .uri(apiProperty.getUrl() + "/flight/all")
                 .retrieve();
