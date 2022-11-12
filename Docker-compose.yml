@@ -1,16 +1,16 @@
 services:
 
-  db:
-    container_name: postgresql
+  flight-web-db:
+    container_name: flight-web-db
     image: postgres
     env_file:
       - ./.env
-    volumes:
-      - ./database/app:/docker-entrypoint-initdb.d
-    environment:
-      - POSTGRES_PASSWORD=$POSTGRESQL_PASSWORD
     ports:
       - "$POSTGRESQL_LOCAL_PORT:5432"
+    environment:
+      - POSTGRES_PASSWORD=$POSTGRESQL_PASSWORD
+    volumes:
+      - ./database/app:/docker-entrypoint-initdb.d
     restart: unless-stopped
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
@@ -18,7 +18,8 @@ services:
       timeout: 5s
       retries: 5
 
-  app:
+  flight-web-app:
+    container_name: flight-web-app
     image: bladeours/flight-search-engine
     env_file:
       - ./.env
@@ -26,33 +27,31 @@ services:
       - "$APP_LOCAL_PORT:$APP_DOCKER_PORT"
     environment:
       SPRING_APPLICATION_JSON: '{
-                "spring.datasource.url"  : "jdbc:postgresql://db:5432/postgres",
+                "spring.datasource.url"  : "jdbc:postgresql://flight-web-db:5432/postgres",
                 "spring.datasource.username" : "$POSTGRESQL_USERNAME",
                 "spring.datasource.password" : "$POSTGRESQL_PASSWORD",
-                "api.url" : "http://api:$FLIGHT_API_DOCKER_PORT",
+                "api.url" : "http://flight-api-app:$FLIGHT_API_DOCKER_PORT",
                 "server.port" : "$APP_DOCKER_PORT"
               }'
-    container_name: flight-search-engine
     depends_on:
-      db:
+      flight-web-db:
         condition: service_healthy
     restart: unless-stopped
 
-  flightdb:
-    image: mysql:latest
+  flight-api-db:
+    container_name: flight-api-db
+    image: mysql
     env_file:
       - ./.env
-    container_name: flight-db
-    volumes:
-      - ./database/flight_api:/docker-entrypoint-initdb.d
-    environment:
-      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
     ports:
       - "$MYSQLDB_LOCAL_PORT:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+    volumes:
+      - ./database/flight_api:/docker-entrypoint-initdb.d
 
-  api:
-    depends_on:
-      - flightdb
+  flight-api-app:
+    container_name: flight-api-app
     env_file:
       - ./.env
     image: bladeours/flight-api
@@ -60,10 +59,50 @@ services:
       - "$FLIGHT_API_LOCAL_PORT:$FLIGHT_API_DOCKER_PORT"
     environment:
       SPRING_APPLICATION_JSON: '{
-           "spring.datasource.url"  : "jdbc:mysql://flightdb:$MYSQLDB_DOCKER_PORT/flights",
+           "spring.datasource.url"  : "jdbc:mysql://flight-api-db:3306/flights",
            "spring.datasource.username" : "$MYSQLDB_USER",
            "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
            "server.port" : "$FLIGHT_API_DOCKER_PORT"
          }'
-    container_name: flight-api-app
+    depends_on:
+      - flight-api-db
     restart: unless-stopped
+
+  flight-generator:
+    container_name: flight-generator
+    env_file:
+      - ./.env
+    image: bladeours/flight-generator
+    environment:
+      - ROWS=$NUMBER_OF_ROWS
+      - IP_DISTANCE=http://airport-api-app:8081
+      - IP_FLIGHT=http://flight-api-app:$FLIGHT_API_DOCKER_PORT
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - flight-api-app
+      - airport-api-app
+
+  mongo:
+    image: mongo:3.4
+    container_name: mongoDB
+
+  mongo-seed:
+    container_name: mongo-seed
+    image: fvilers/mongo-seed
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+    volumes:
+      - ./database/airport_api:/database
+    command:
+      "mongoimport --host mongo --port 27017 --db airport --mode upsert --type json --file database/airport.json --jsonArray --drop"
+    depends_on:
+      - mongo
+
+  airport-api-app:
+    image: bladeours/airport-api
+    ports:
+      - "8081:8081"
+    container_name: airport-api
+
+
