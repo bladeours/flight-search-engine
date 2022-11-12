@@ -10,7 +10,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=$POSTGRESQL_PASSWORD
     volumes:
-      - ./database/app:/docker-entrypoint-initdb.d
+      - ./database/flight-search_engine:/docker-entrypoint-initdb.d
     restart: unless-stopped
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
@@ -82,22 +82,22 @@ services:
       - flight-api-app
       - airport-api-app
 
-  mongo:
+  airport-api-db:
     image: mongo:3.4
-    container_name: mongoDB
+    container_name: airport-api-db
 
-  mongo-seed:
-    container_name: mongo-seed
+  airport-api-db-seed:
+    container_name: airport-api-db-seed
     image: fvilers/mongo-seed
     environment:
-      - MONGO_HOST=mongo
+      - MONGO_HOST=airport-api-db
       - MONGO_PORT=27017
     volumes:
       - ./database/airport_api:/database
     command:
-      "mongoimport --host mongo --port 27017 --db airport --mode upsert --type json --file database/airport.json --jsonArray --drop"
+      "mongoimport --host airport-api-db --port 27017 --db airport --mode upsert --type json --file database/airport.json --jsonArray --drop"
     depends_on:
-      - mongo
+      - airport-api-db
 
   airport-api-app:
     image: bladeours/airport-api
