@@ -3,6 +3,7 @@ Spring MVC app with flight search engine.
 
 ## Table of Contents
 * [General Info](#general-info)
+* [Related repositories](#related-repositories)
 * [Technologies Used](#technologies-used)
 * [Setup](#setup)
 * [Overview](#overview)
@@ -14,6 +15,11 @@ REST API with flight data, so I had to create [flight generator](https://github.
 [REST API](https://github.com/bladeours/flight-api) to get mocked flight data. You can create account,
 change password, remove account or add flight to cart. Frontend is responsive, so you can check this project 
 on your phone.
+
+## Related repositories
+* [Flight API](https://github.com/bladeours/flight-api)
+* [Airport API](https://github.com/bladeours/airport-api)
+* [Random flights generator](https://github.com/bladeours/random-flights-generator)
 
 ## Technologies Used
 * Java 17
