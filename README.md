@@ -39,6 +39,7 @@ on your phone.
 * `docker-compose up -d`
 
 App runs on 8084 port, but you can change it in `.env` file. \
+If you want change how many flights should be generated then change `NUMBER_OF_ROWS` in `.env` file. \
 Docker compose runs:
 * **flight-web-db** - PostgreSQL database for flight search engine app
 * **flight-web-app** - This app
