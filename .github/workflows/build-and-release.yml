@@ -1,0 +1,56 @@
+name: Build and upload release
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: set timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "Europe/Warsaw"
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Run tests
+        run: mvn test
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml -DskipTests
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'flightSearchEngine.jar'
+          path: target/flightSearchEngine.jar
+  create-release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: ${{ github.ref_name }}
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: 'flightSearchEngine.jar'
+          path: target
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: target/flightSearchEngine.jar
+          asset_name: flightSearchEngine-${{ github.ref_name }}.jar
+          asset_content_type: application/java-archive
