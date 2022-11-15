@@ -59,6 +59,7 @@ Docker compose runs:
 
 #### Run app
 This app requires Java 17
+* Download [release](https://github.com/bladeours/flight-search-engine/releases/latest)
 * `java -jar flightSearchEngine.jar`
 
 * app runs on port 8084 
