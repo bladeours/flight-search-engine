@@ -41,9 +41,6 @@ CREATE TABLE users_authorities(
 
 INSERT INTO authorities VALUES (1, 'ADMIN');
 INSERT INTO authorities VALUES (2, 'USER');
-INSERT INTO carts VALUES (1);
-INSERT INTO users VALUES (1, 'admin', '$2a$10$rAjqRLmxqmA/kqbVxGUVVO2.r5os/IuuWeoVOCsmo9AqHzaAb6eU.', true, 1);
-INSERT INTO users_authorities VALUES (1, 1);
 
 
 
