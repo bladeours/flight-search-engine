@@ -42,6 +42,9 @@
                         <span class="fw-bold" th:text="'Price: ' + ${#numbers.formatDecimal(flight.getPrice(),1,2,'POINT')} + '$'"></span>
                     </div>
                     <div class="col text-end">
+                        <span th:text="'Departure date: ' + ${#dates.format(flight.getArrivalDate(), 'dd-MM-yyyy')}"></span>
+                    </div>
+                    <div class="col text-end">
                         <span th:text="'Flight number: ' + ${#strings.toUpperCase(#strings.substring(flight.getCompany().getName(),0,2))}
                         + ' ' + ${#numbers.formatInteger(flight.getId(),6)}"></span>
                     </div>
@@ -52,6 +55,7 @@
                         <span th:text="'Averange legroom: ' + ${#numbers.formatDecimal(T(java.lang.Math).floor(T(java.lang.Math).random()*40 + 70),1,0)}
                         + 'cm'"></span>
                     </div>
+
                 </div>
             </div>
             <div class="row text-center">

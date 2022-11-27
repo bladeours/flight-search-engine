@@ -59,12 +59,10 @@
                         </div>
                         <div class="row">
                             <div class="col text-start">
-                                <span style="margin-bottom: 0" th:text="${#dates.format(flight.getArrivalDate(), 'dd-MM-yyy HH:mm')}"></span>
+                                <span style="margin-bottom: 0" th:text="${#dates.format(flight.getArrivalDate(), 'dd-MM-yyyy HH:mm')}"></span>
                             </div>
                             <div class="col text-end">
-<!--                                <a th:href="@{/removeFromCart/{flightId}(flightId=${flight.getIdFromCart()})}">-->
-<!--                                    <button type="button" class="btn btn-outline-primary btn-sm">remove</button>-->
-<!--                                </a>-->
+
                             </div>
                         </div>
                         <hr>
