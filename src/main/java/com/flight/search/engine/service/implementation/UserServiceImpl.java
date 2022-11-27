@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,19 +32,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerUser(UserDTO userDTO) {
+    public User registerUser(UserDTO userDTO) {
         User user = new User();
         user.setEnabled(true);
         user.setUsername(userDTO.getUsername());
         user.setPassword(encryptPassword(userDTO.getPassword()));
-        HashSet<Authority> authorities = authorityService.getAuthoritiesByName( "USER");
+        HashSet<Authority> authorities = authorityService.getAuthoritiesByName( "ADMIN1");
         user.setAuthorities(authorities);
         user.setCart(new Cart());
         if(userExists(userDTO.getUsername())){
             throw new UserAlreadyExistsException("There is an account with that username: "
                     + userDTO.getUsername());
         }
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
@@ -89,6 +90,14 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).get();
         user.setEnabled(!user.isEnabled());
         save(user);
+    }
+
+    @Override
+    public void addAuthorityToUser(User user, Authority authority) {
+        Set<Authority> authorities = user.getAuthorities();
+        authorities.add(authority);
+        user.setAuthorities(authorities);
+        userRepository.save(user);
     }
 
 

@@ -21,7 +21,7 @@ public class User {
     boolean enabled;
 
     @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH,
-            CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+            CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_authorities",
             joinColumns = @JoinColumn(name = "user_id"),
