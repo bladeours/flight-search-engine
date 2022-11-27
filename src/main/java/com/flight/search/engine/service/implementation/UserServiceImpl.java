@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         user.setEnabled(true);
         user.setUsername(userDTO.getUsername());
         user.setPassword(encryptPassword(userDTO.getPassword()));
-        HashSet<Authority> authorities = authorityService.getAuthoritiesByName( "ADMIN1");
+        HashSet<Authority> authorities = authorityService.getAuthoritiesByName( "USER");
         user.setAuthorities(authorities);
         user.setCart(new Cart());
         if(userExists(userDTO.getUsername())){
