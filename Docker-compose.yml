@@ -75,7 +75,7 @@ services:
     image: bladeours/flight-generator
     environment:
       - ROWS=$NUMBER_OF_ROWS
-      - IP_DISTANCE=http://airport-api-app:8081
+      - IP_DISTANCE=http://airport-api-app:$AIRPORT_API_LOCAL_PORT
       - IP_FLIGHT=http://flight-api-app:$FLIGHT_API_DOCKER_PORT
       - PYTHONUNBUFFERED=1
     depends_on:
@@ -102,7 +102,11 @@ services:
   airport-api-app:
     image: bladeours/airport-api
     ports:
-      - "8081:8081"
-    container_name: airport-api
+      - "$AIRPORT_API_LOCAL_PORT:8081"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+               "spring.data.mongodb.host"  : "airport-api-db"
+             }'
+    container_name: airport-api-app
 
 
